@@ -8,7 +8,7 @@
 <body style="background-color: #0D0B14;">
 <div style="color: white; font-size:20px;">
     <div style="text-align:center; margin-top:100px;">
-        <img src="{{asset('images/quote.png')}}" alt="img">
+        <img src="{{asset('/images/quote.png')}}" alt="img">
         <p style="color:#DDCCAA;">Movie Quotes</p>
     </div>
    <div style="margin-top:180px; margin-left: 100px">

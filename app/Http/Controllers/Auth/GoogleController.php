@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
@@ -35,15 +36,17 @@ class GoogleController extends Controller
 				'provider_id'=> $data->id,
 			]);
 		}
-		else
+		if (!$user)
 		{
 			$user = User::create([
-				'username'          => strtolower($data->name),
+				'username'          => strtolower(str_replace(' ', '', $data->name)),
 				'email'             => $data->email,
+				'password'          => Hash::make($data->getName() . '@' . $data->getId()),
 				'email_verified_at' => Carbon::now(),
 				'provider'          => $provider,
 				'provider_id'       => $data->id,
 			]);
 		}
+		auth()->login($user, true);
 	}
 }

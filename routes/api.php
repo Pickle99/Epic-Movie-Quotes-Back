@@ -27,4 +27,4 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('forgot-password', [ResetPasswordController::class, 'resetPassword'])->name('password.email');
 Route::post('reset-password/{token}', [ResetPasswordController::class, 'updatePassword'])->name('password.update');
 
-Route::get('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user.verify');
+Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user.verify');
