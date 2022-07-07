@@ -32,11 +32,20 @@ class RegisterController extends Controller
 			{
 				$user->email_verified_at = Carbon::now();
 				$user->save();
-				auth()->login($user);
-				return response()->json('User successfully verified!', 200);
+				auth()->login($user, true);
+				return $this->respondWithToken($token);
 			}
 			return response()->json('User already verified', 404);
 		}
 		return response()->json('User doesnt exist', 404);
+	}
+
+	protected function respondWithToken(string $token): JsonResponse
+	{
+		return response()->json([
+			'access_token' => $token,
+			'token_type'   => 'bearer',
+			'expires_in'   => auth()->factory()->getTTL() * 60,
+		]);
 	}
 }

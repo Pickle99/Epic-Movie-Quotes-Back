@@ -22,7 +22,7 @@ class GoogleController extends Controller
 	{
 		$user = Socialite::driver(static::GOOGLE_TYPE)->user();
 		$this->createOrUpdateUser($user, static::GOOGLE_TYPE);
-		return redirect()->to('http://localhost:3000/movies');
+		return redirect()->to('http://localhost:3000/feed');
 	}
 
 	private function createOrUpdateUser($data, $provider)

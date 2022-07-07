@@ -16,7 +16,7 @@
         <p style="margin-top: 40px; margin-bottom:60px;">Forgot your password?</p>
         <a href="http://localhost:3000/reset-password/{{$passwordReset->token}}/{{$passwordReset->email}}/" style="text-decoration:none; color:white; padding: 10px 20px; background-color: #E31221;">Password Reset</a>
         <p style="margin-top:60px; margin-bottom:50px">If clicking doesn't work, you can try copying and pasting it to your browser:</p>
-        <a style="margin-top:20px; color:#DDCCAA;" href="http://localhost:3000/reset-password/{{$passwordReset->token}}/{{$passwordReset->email}}/">http://localhost:3000/reset-password/{{$passwordReset->token}}/{{$passwordReset->email}}</a>
+        <a style="margin-top:20px; color:#DDCCAA;" href="http://localhost:3000/reset-password/{{$passwordReset->token}}/{{$passwordReset->email}}/">http://localhost:3000/reset-password/{{$passwordReset->token}}/{{$passwordReset->email}}/</a>
         <p style="margin-top:50px">If you have any problems, please contact us: support@moviequotes.ge</p>
         <p style="margin-top:35px;">MovieQuotes Crew</p>
     </div>
