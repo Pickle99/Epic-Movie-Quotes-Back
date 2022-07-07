@@ -32,7 +32,7 @@ class RegisterController extends Controller
 			{
 				$user->email_verified_at = Carbon::now();
 				$user->save();
-				auth()->login($user, true);
+				$token = auth('api')->login($user);
 				return $this->respondWithToken($token);
 			}
 			return response()->json('User already verified', 404);
