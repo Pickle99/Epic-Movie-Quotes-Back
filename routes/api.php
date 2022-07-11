@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,3 +29,5 @@ Route::post('forgot-password', [ResetPasswordController::class, 'resetPassword']
 Route::post('reset-password/{token}', [ResetPasswordController::class, 'updatePassword'])->name('password.update');
 
 Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user.verify');
+
+Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
