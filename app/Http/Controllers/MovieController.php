@@ -35,25 +35,14 @@ class MovieController extends Controller
 		$genres = $request->genres;
 		foreach ($genres as $genre)
 		{
-//			$genre = new Genre();
-//			$genre->name = $genre;
+			$newGenre = new Genre();
+			$newGenre->name = $genre;
+			$newGenre->save();
 			$genreMovie = new GenreMovie();
-//			$genreMovie->genre_id = $genre->id();
-//			$genreMovie->movie_id = $movie->id();
-			Genre::create([
-				'name'                => $genre->name,
-				$genreMovie->genre_id => $genre->id(),
-				$genreMovie->user_id  => $genre->id(),
-			]);
+			$genreMovie->movie_id = $movie->id;
+			$genreMovie->genre_id = $newGenre->id;
+			$genreMovie->save();
 		}
-//		if (count($request->genres) === 1)
-//		{
-//			$genre->name = $request->genres;
-//			$genreMovie = new GenreMovie();
-//			$genreMovie->genre_id = $genre->id();
-//			$genreMovie->movie_id = $movie->id();
-//		}
-		$genre->save();
 
 		return response()->json('Movie created successfully');
 	}
