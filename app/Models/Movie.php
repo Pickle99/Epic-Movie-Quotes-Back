@@ -15,4 +15,14 @@ class Movie extends Model
 	public $translatable = ['title', 'director', 'description'];
 
 	protected $guarded = ['id'];
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
+	public function genres()
+	{
+		return $this->hasMany(Genre::class);
+	}
 }
