@@ -69,6 +69,6 @@ class MovieController extends Controller
 		{
 			$genreMovie = $genre->name;
 		}
-		return response()->json($movie);
+		return response()->json([$movie]);
 	}
 }
