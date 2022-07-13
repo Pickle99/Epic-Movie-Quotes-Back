@@ -34,3 +34,4 @@ Route::post('successfully-verified/{token}', [RegisterController::class, 'verify
 Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
 
 Route::get('genres', [GenreController::class, 'getGenres'])->name('genres.get')->middleware('auth:api');
+Route::get('feed', [MovieController::class, 'getAllMovies'])->name('movies.create')->middleware('auth:api');

@@ -9,16 +9,25 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
 	public function createUser(RegisterRequest $request): JsonResponse
 	{
-		$validated = $request->validated();
-		$validated['password'] = bcrypt($validated['password']);
-		$validated['token'] = Str::random(60);
-		$user = User::create($validated);
+		$dir = 'images/avatar';
+		if ($files = Storage::disk('web')->allFiles($dir))
+		{
+			$path = $files[array_rand($files)];
+		}
+		$user = User::create([
+			'username' => $request->username,
+			'email'    => $request->email,
+			'password' => bcrypt($request->password),
+			'token'    => Str::random(60),
+			'avatar'   => $path,
+		]);
 		Mail::to($user->email)->send(new VerifyEmail($user));
 		return response()->json('User successfully registered!', 200);
 	}
@@ -46,6 +55,7 @@ class RegisterController extends Controller
 			'access_token' => $token,
 			'token_type'   => 'bearer',
 			'expires_in'   => auth()->factory()->getTTL() * 60,
+			'user'         => auth()->user(),
 		]);
 	}
 }
