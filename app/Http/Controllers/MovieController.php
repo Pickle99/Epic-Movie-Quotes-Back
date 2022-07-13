@@ -35,12 +35,10 @@ class MovieController extends Controller
 		$genres = $request->genres;
 		foreach ($genres as $genre)
 		{
-			$newGenre = new Genre();
-			$newGenre->name = $genre;
-			$newGenre->save();
+			$currentGenreId = Genre::where('name', $genre)->first()->id;
 			$genreMovie = new GenreMovie();
 			$genreMovie->movie_id = $movie->id;
-			$genreMovie->genre_id = $newGenre->id;
+			$genreMovie->genre_id = $currentGenreId;
 			$genreMovie->save();
 		}
 

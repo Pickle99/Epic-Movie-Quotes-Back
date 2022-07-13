@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Http\Request;
@@ -31,3 +32,5 @@ Route::post('reset-password/{token}', [ResetPasswordController::class, 'updatePa
 Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user.verify');
 
 Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
+
+Route::get('genres', [GenreController::class, 'getGenres'])->name('genres.get')->middleware('auth:api');
