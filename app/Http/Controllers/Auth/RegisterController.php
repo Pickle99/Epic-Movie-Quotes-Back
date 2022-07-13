@@ -29,7 +29,7 @@ class RegisterController extends Controller
 			'avatar'   => $path,
 		]);
 		Mail::to($user->email)->send(new VerifyEmail($user));
-		return response()->json('User successfully registered!', 200);
+		return response()->json(['message'=>'User successfully registered!', 200]);
 	}
 
 	public function verifyEmail(string $token): JsonResponse
@@ -44,7 +44,7 @@ class RegisterController extends Controller
 				$token = auth('api')->login($user);
 				return $this->respondWithToken($token);
 			}
-			return response()->json('User already verified', 404);
+			return response()->json(['error'=>'User already verified', 404]);
 		}
 		return response()->json('User doesnt exist', 404);
 	}
