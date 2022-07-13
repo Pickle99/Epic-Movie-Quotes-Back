@@ -36,3 +36,5 @@ Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
 Route::get('genres', [GenreController::class, 'getGenres'])->name('genres.get')->middleware('auth:api');
 Route::get('feed', [MovieController::class, 'getAllMovies'])->name('movies.create')->middleware('auth:api');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:api');
+Route::get('user-movies', [MovieController::class, 'getUserMovies'])->name('user.movies')->middleware('auth:api');
+Route::post('movie/{id}', [MovieController::class, 'getMovieDescription'])->name('movie.description')->middleware('auth:api');

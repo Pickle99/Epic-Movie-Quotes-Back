@@ -55,17 +55,20 @@ class MovieController extends Controller
 		return response()->json(['movies' => $movies]);
 	}
 
-	//    public function getAllMovies(): JsonResponse
-//    {
-//        $movies = Movie::all();
-//        $genreMovie = [];
-//        foreach ($movies as $movie)
-//        {
-//            foreach ($movie->genres as $genre)
-//            {
-//                array_push($genreMovie, $genre->name);
-//            }
-//        }
-//        return response()->json(['movies' => $movies, 'genres' => $genreMovie]);
-//    }
+	public function getUserMovies(): JsonResponse
+	{
+		$userId = auth()->user()->getAuthIdentifier();
+		$userMovies = Movie::where('user_id', $userId)->get();
+		return response()->json(['movies' => $userMovies]);
+	}
+
+	public function getMovieDescription(int $id): JsonResponse
+	{
+		$movie = Movie::find($id);
+		foreach ($movie->genres as $genre)
+		{
+			$genreMovie = $genre->name;
+		}
+		return response()->json($movie);
+	}
 }
