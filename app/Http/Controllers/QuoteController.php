@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuoteRequest;
+use App\Http\Requests\UpdateQuoteRequest;
 use App\Models\Movie;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +34,7 @@ class QuoteController extends Controller
 		return response()->json([$quote]);
 	}
 
-	public function update(StoreQuoteRequest $request, Quote $quote): JsonResponse
+	public function update(UpdateQuoteRequest $request, Quote $quote): JsonResponse
 	{
 		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
 		if ($request->hasFile('image'))
