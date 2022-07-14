@@ -25,4 +25,9 @@ class Movie extends Model
 	{
 		return $this->belongsToMany(Genre::class);
 	}
+
+	public function quotes()
+	{
+		return $this->hasMany(Quote::class);
+	}
 }

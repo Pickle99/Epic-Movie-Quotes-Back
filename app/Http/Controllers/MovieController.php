@@ -17,7 +17,7 @@ class MovieController extends Controller
 		$movie = new Movie;
 		$movie->title = ['en' => $request->title_en, 'ka' => $request->title_ka];
 		$movie->director = ['en' => $request->director_en, 'ka' => $request->director_ka];
-		$movie->description = ['en' => $request->director_en, 'ka' => $request->director_ka];
+		$movie->description = ['en' => $request->description_en, 'ka' => $request->description_ka];
 		$movie->year = $request->year;
 		$movie->budget = $request->budget;
 		$movie->slug = Str::slug($request->title_en);
@@ -45,30 +45,27 @@ class MovieController extends Controller
 		return response()->json('Movie created successfully');
 	}
 
-	public function getAllMovies(): JsonResponse
+	public function showAllMovies(): JsonResponse
 	{
-		$movies = Movie::all();
-		foreach ($movies as $movie)
-		{
-			$userOfMovie = $movie->user;
-		}
+		$movies = Movie::with('user')->get();
 		return response()->json(['movies' => $movies]);
 	}
 
-	public function getUserMovies(): JsonResponse
+	public function showUserMovies(): JsonResponse
 	{
 		$userId = auth()->user()->getAuthIdentifier();
 		$userMovies = Movie::where('user_id', $userId)->get();
 		return response()->json(['movies' => $userMovies]);
 	}
 
-	public function getMovieDescription(int $id): JsonResponse
+	public function showMovieDescription(int $id): JsonResponse
 	{
-		$movie = Movie::find($id);
-		foreach ($movie->genres as $genre)
-		{
-			$genreMovie = $genre->name;
-		}
+		$movie = Movie::with(['genres', 'quotes'])->where('id', $id)->get();
+		return response()->json($movie);
+	}
+
+	public function showMovie(Movie $movie): JsonResponse
+	{
 		return response()->json([$movie]);
 	}
 }
