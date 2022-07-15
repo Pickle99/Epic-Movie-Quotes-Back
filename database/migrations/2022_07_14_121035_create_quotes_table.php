@@ -17,6 +17,7 @@ return new class extends Migration {
 			$table->json('text');
 			$table->string('image');
 			$table->foreignId('movie_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
 			$table->timestamps();
 		});
 	}

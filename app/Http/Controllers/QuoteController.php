@@ -16,6 +16,7 @@ class QuoteController extends Controller
 		$quote = new Quote;
 		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
 		$quote->movie_id = $movie->id;
+		$quote->user_id = auth()->user()->getAuthIdentifier();
 		if ($request->hasFile('image'))
 		{
 			File::delete(public_path('images/') . $quote->image);
@@ -47,6 +48,12 @@ class QuoteController extends Controller
 		}
 		$quote->update();
 		return response()->json('Quote updated successfully!');
+	}
+
+	public function showAllQuotes(): JsonResponse
+	{
+		$quotes = Quote::with(['user', 'movie'])->get();
+		return response()->json($quotes);
 	}
 
 	public function destroy(Quote $quote): JsonResponse

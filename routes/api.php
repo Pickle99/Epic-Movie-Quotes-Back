@@ -35,7 +35,6 @@ Route::post('successfully-verified/{token}', [RegisterController::class, 'verify
 Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
 
 Route::get('genres', [GenreController::class, 'showGenres'])->name('genres.get')->middleware('auth:api');
-Route::get('feed', [MovieController::class, 'showAllMovies'])->name('movies.create')->middleware('auth:api');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:api');
 Route::get('user-movies', [MovieController::class, 'showUserMovies'])->name('user.movies')->middleware('auth:api');
 Route::post('movie/{id}', [MovieController::class, 'showMovieDescription'])->name('movie.description')->middleware('auth:api');
@@ -46,4 +45,5 @@ Route::post('quote/{quote}/update', [QuoteController::class, 'update'])->name('q
 Route::get('movie/{movie}/genres', [MovieController::class, 'showMovieWithGenres'])->name('movie.genres_show')->middleware('auth:api');
 Route::post('movie/{movie}/update', [MovieController::class, 'update'])->name('movie.update')->middleware('auth:api');
 Route::post('movie/{movie}/delete', [MovieController::class, 'destroy'])->name('movie.destroy')->middleware('auth:api');
-Route::post('movie/{movie}/quote/{quote}/delete', [QuoteController::class, 'destroy'])->name('quote.destroy')->middleware('auth:api');
+Route::post('quote/{quote}/delete', [QuoteController::class, 'destroy'])->name('quote.destroy')->middleware('auth:api');
+Route::get('feed', [QuoteController::class, 'showAllQuotes'])->name('all.quotes_show')->middleware('auth:api');

@@ -46,12 +46,6 @@ class MovieController extends Controller
 		return response()->json('Movie created successfully');
 	}
 
-	public function showAllMovies(): JsonResponse
-	{
-		$movies = Movie::with('user')->get();
-		return response()->json(['movies' => $movies]);
-	}
-
 	public function showUserMovies(): JsonResponse
 	{
 		$userId = auth()->user()->getAuthIdentifier();
