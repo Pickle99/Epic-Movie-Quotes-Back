@@ -44,6 +44,6 @@ Route::get('quote/{quote}', [QuoteController::class, 'showQuote'])->name('quote.
 Route::post('quote/{quote}/update', [QuoteController::class, 'update'])->name('quote.update')->middleware('auth:api');
 Route::get('movie/{movie}/genres', [MovieController::class, 'showMovieWithGenres'])->name('movie.genres_show')->middleware('auth:api');
 Route::post('movie/{movie}/update', [MovieController::class, 'update'])->name('movie.update')->middleware('auth:api');
-Route::post('movie/{movie}/delete', [MovieController::class, 'destroy'])->name('movie.destroy')->middleware('auth:api');
-Route::post('quote/{quote}/delete', [QuoteController::class, 'destroy'])->name('quote.destroy')->middleware('auth:api');
+Route::delete('movie/{movie}/delete', [MovieController::class, 'destroy'])->name('movie.destroy')->middleware('auth:api');
+Route::delete('quote/{quote}/delete', [QuoteController::class, 'destroy'])->name('quote.destroy')->middleware('auth:api');
 Route::get('feed', [QuoteController::class, 'showAllQuotes'])->name('all.quotes_show')->middleware('auth:api');
