@@ -29,7 +29,7 @@ class QuoteController extends Controller
 		return response()->json('Movie created successfully');
 	}
 
-	public function create(Quote $quote): JsonResponse
+	public function showQuote(Quote $quote): JsonResponse
 	{
 		return response()->json([$quote]);
 	}

@@ -40,7 +40,7 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middle
 Route::get('user-movies', [MovieController::class, 'showUserMovies'])->name('user.movies')->middleware('auth:api');
 Route::post('movie/{id}', [MovieController::class, 'showMovieDescription'])->name('movie.description')->middleware('auth:api');
 Route::post('movie/{movie}/quote', [QuoteController::class, 'store'])->name('quote.store')->middleware('auth:api');
-Route::get('{movie}/movie', [MovieController::class, 'showMovie'])->name('show.movie')->middleware('auth:api');
+Route::get('movie/{movie}', [MovieController::class, 'showMovie'])->name('show.movie')->middleware('auth:api');
 //Route::get('movie/{movie}/quote/{quote}/edit'); // ემთხვევა იმ როუთს რაც ვიუშია
-Route::get('quote/{quote}/edit', [QuoteController::class, 'create'])->name('quote.create')->middleware('auth:api');
-Route::post('editor/{quote}/edit', [QuoteController::class, 'update'])->name('quote.update')->middleware('auth:api');
+Route::get('quote/{quote}', [QuoteController::class, 'showQuote'])->name('quote.create')->middleware('auth:api');
+Route::post('quote/{quote}/update', [QuoteController::class, 'update'])->name('quote.update')->middleware('auth:api');
