@@ -93,6 +93,22 @@ class MovieController extends Controller
 			$movie->image = 'images/' . $filename;
 		}
 		$movie->update();
+		GenreMovie::where('movie_id', $movie->id)->delete();
+		$genres = $request->genres;
+		foreach ($genres as $genre)
+		{
+			$currentGenreId = Genre::where('name', $genre)->first()->id;
+			$genreMovie = new GenreMovie();
+			$genreMovie->movie_id = $movie->id;
+			$genreMovie->genre_id = $currentGenreId;
+			$genreMovie->save();
+		}
 		return response()->json('Quote updated successfully!');
+	}
+
+	public function destroy(Movie $movie): JsonResponse
+	{
+		$movie->delete();
+		return response()->json('Movie successfully deleted');
 	}
 }

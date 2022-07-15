@@ -48,4 +48,10 @@ class QuoteController extends Controller
 		$quote->update();
 		return response()->json('Quote updated successfully!');
 	}
+
+	public function destroy(Quote $quote): JsonResponse
+	{
+		$quote->delete();
+		return response()->json('Quote successfully deleted');
+	}
 }
