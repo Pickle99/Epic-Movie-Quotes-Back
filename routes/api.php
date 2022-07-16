@@ -32,7 +32,7 @@ Route::post('reset-password/{token}', [ResetPasswordController::class, 'updatePa
 
 Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user.verify');
 
-Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
+Route::post('movies', [MovieController::class, 'store'])->name('movies.store')->middleware('auth:api');
 
 Route::get('genres', [GenreController::class, 'showGenres'])->name('genres.get')->middleware('auth:api');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:api');

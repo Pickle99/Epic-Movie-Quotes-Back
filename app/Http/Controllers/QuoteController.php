@@ -37,17 +37,21 @@ class QuoteController extends Controller
 
 	public function update(UpdateQuoteRequest $request, Quote $quote): JsonResponse
 	{
-		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
-		if ($request->hasFile('image'))
+		if (auth()->user()->getAuthIdentifier() === $quote->user_id)
 		{
-			File::delete(public_path('images') . $quote->image);
-			$file = $request->file('image');
-			$filename = $file->getClientOriginalName();
-			$file->move('images/', $filename);
-			$quote->image = 'images/' . $filename;
+			$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
+			if ($request->hasFile('image'))
+			{
+				File::delete(public_path('images') . $quote->image);
+				$file = $request->file('image');
+				$filename = $file->getClientOriginalName();
+				$file->move('images/', $filename);
+				$quote->image = 'images/' . $filename;
+			}
+			$quote->update();
+			return response()->json(['message'=>'Quote updated successfully', 200]);
 		}
-		$quote->update();
-		return response()->json('Quote updated successfully!');
+		return response()->json(['error' => 'You dont have a permission to delete this quote', 404]);
 	}
 
 	public function showAllQuotes(): JsonResponse
@@ -58,7 +62,11 @@ class QuoteController extends Controller
 
 	public function destroy(Quote $quote): JsonResponse
 	{
-		$quote->delete();
-		return response()->json('Quote successfully deleted');
+		if (auth()->user()->getAuthIdentifier() === $quote->user_id)
+		{
+			$quote->delete();
+			return response()->json(['message' => 'Quote successfully deleted', 200]);
+		}
+		return response()->json(['error' => 'You dont have a permission to delete this quote', 404]);
 	}
 }

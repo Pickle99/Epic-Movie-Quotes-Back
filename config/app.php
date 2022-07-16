@@ -157,7 +157,6 @@ return [
 		/*
 		 * Laravel Framework Service Providers...
 		 */
-		Spatie\Permission\PermissionServiceProvider::class,
 		PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider::class,
 		Illuminate\Auth\AuthServiceProvider::class,
 		Illuminate\Broadcasting\BroadcastServiceProvider::class,
