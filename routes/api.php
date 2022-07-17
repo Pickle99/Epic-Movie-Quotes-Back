@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ResetPasswordController;
@@ -47,3 +48,4 @@ Route::post('movie/{movie}/update', [MovieController::class, 'update'])->name('m
 Route::delete('movie/{movie}/delete', [MovieController::class, 'destroy'])->name('movie.destroy')->middleware('auth:api');
 Route::delete('quote/{quote}/delete', [QuoteController::class, 'destroy'])->name('quote.destroy')->middleware('auth:api');
 Route::get('feed', [QuoteController::class, 'showAllQuotes'])->name('all.quotes_show')->middleware('auth:api');
+Route::get('quote/{quote}/add-like', [LikeController::class, 'store'])->name('like.store')->middleware('auth:api');

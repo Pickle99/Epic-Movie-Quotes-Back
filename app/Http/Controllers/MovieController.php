@@ -72,48 +72,39 @@ class MovieController extends Controller
 
 	public function update(UpdateMovieRequest $request, Movie $movie): JsonResponse
 	{
-		if (auth()->user()->getAuthIdentifier() === $movie->user_id)
+		$movie->title = ['en' => $request->title_en, 'ka' => $request->title_ka];
+		$movie->director = ['en' => $request->director_en, 'ka' => $request->director_ka];
+		$movie->description = ['en' => $request->description_en, 'ka' => $request->description_ka];
+		$movie->year = $request->year;
+		$movie->budget = $request->budget;
+		$movie->slug = Str::slug($request->title_en);
+
+		if ($request->hasFile('image'))
 		{
-			$movie->title = ['en' => $request->title_en, 'ka' => $request->title_ka];
-			$movie->director = ['en' => $request->director_en, 'ka' => $request->director_ka];
-			$movie->description = ['en' => $request->description_en, 'ka' => $request->description_ka];
-			$movie->year = $request->year;
-			$movie->budget = $request->budget;
-			$movie->slug = Str::slug($request->title_en);
-
-			if ($request->hasFile('image'))
-			{
-				File::delete(public_path('images') . $movie->image);
-				$file = $request->file('image');
-				$filename = $file->getClientOriginalName();
-				$file->move('images/', $filename);
-				$movie->image = 'images/' . $filename;
-			}
-
-			$movie->update();
-			GenreMovie::where('movie_id', $movie->id)->delete();
-			$genres = $request->genres;
-			foreach ($genres as $genre)
-			{
-				$currentGenreId = Genre::where('name', $genre)->first()->id;
-				$genreMovie = new GenreMovie();
-				$genreMovie->movie_id = $movie->id;
-				$genreMovie->genre_id = $currentGenreId;
-				$genreMovie->save();
-			}
-			return response()->json(['message' => 'Movie updated successfully!', 200]);
+			File::delete(public_path('images') . $movie->image);
+			$file = $request->file('image');
+			$filename = $file->getClientOriginalName();
+			$file->move('images/', $filename);
+			$movie->image = 'images/' . $filename;
 		}
 
-		return response()->json(['error' => 'You dont have a permission to update this movie', 404]);
+		$movie->update();
+		GenreMovie::where('movie_id', $movie->id)->delete();
+		$genres = $request->genres;
+		foreach ($genres as $genre)
+		{
+			$currentGenreId = Genre::where('name', $genre)->first()->id;
+			$genreMovie = new GenreMovie();
+			$genreMovie->movie_id = $movie->id;
+			$genreMovie->genre_id = $currentGenreId;
+			$genreMovie->save();
+		}
+		return response()->json(['message' => 'Movie updated successfully!', 200]);
 	}
 
 	public function destroy(Movie $movie): JsonResponse
 	{
-		if (auth()->user()->getAuthIdentifier() === $movie->user_id)
-		{
-			$movie->delete();
-			return response()->json(['message' => 'Movie successfully deleted', 200]);
-		}
-		return response()->json(['error' => 'You dont have a permission to delete this movie', 404]);
+		$movie->delete();
+		return response()->json(['message' => 'Movie successfully deleted', 200]);
 	}
 }

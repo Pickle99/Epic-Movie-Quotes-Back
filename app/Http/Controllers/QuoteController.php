@@ -32,41 +32,34 @@ class QuoteController extends Controller
 
 	public function showQuote(Quote $quote): JsonResponse
 	{
-		return response()->json([$quote]);
+		$quoteWithUser = Quote::where('id', $quote->id)->with('user')->first();
+		return response()->json([$quoteWithUser]);
 	}
 
 	public function update(UpdateQuoteRequest $request, Quote $quote): JsonResponse
 	{
-		if (auth()->user()->getAuthIdentifier() === $quote->user_id)
+		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
+		if ($request->hasFile('image'))
 		{
-			$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
-			if ($request->hasFile('image'))
-			{
-				File::delete(public_path('images') . $quote->image);
-				$file = $request->file('image');
-				$filename = $file->getClientOriginalName();
-				$file->move('images/', $filename);
-				$quote->image = 'images/' . $filename;
-			}
-			$quote->update();
-			return response()->json(['message'=>'Quote updated successfully', 200]);
+			File::delete(public_path('images') . $quote->image);
+			$file = $request->file('image');
+			$filename = $file->getClientOriginalName();
+			$file->move('images/', $filename);
+			$quote->image = 'images/' . $filename;
 		}
-		return response()->json(['error' => 'You dont have a permission to delete this quote', 404]);
+		$quote->update();
+		return response()->json(['message'=>'Quote updated successfully', 200]);
 	}
 
 	public function showAllQuotes(): JsonResponse
 	{
-		$quotes = Quote::with(['user', 'movie'])->get();
+		$quotes = Quote::with(['user', 'movie', 'likes'])->get();
 		return response()->json($quotes);
 	}
 
 	public function destroy(Quote $quote): JsonResponse
 	{
-		if (auth()->user()->getAuthIdentifier() === $quote->user_id)
-		{
-			$quote->delete();
-			return response()->json(['message' => 'Quote successfully deleted', 200]);
-		}
-		return response()->json(['error' => 'You dont have a permission to delete this quote', 404]);
+		$quote->delete();
+		return response()->json(['message' => 'Quote deleted', 200]);
 	}
 }
