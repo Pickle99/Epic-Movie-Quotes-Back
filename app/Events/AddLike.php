@@ -8,7 +8,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class AddOrRemoveLike implements ShouldBroadcast
+class AddLike implements ShouldBroadcast
 {
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -33,6 +33,6 @@ class AddOrRemoveLike implements ShouldBroadcast
 	 */
 	public function broadcastOn()
 	{
-		return new Channel('likes');
+		return new Channel('addLike.' . $this->like->quote_id);
 	}
 }
