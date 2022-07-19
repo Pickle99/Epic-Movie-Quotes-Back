@@ -9,7 +9,6 @@ use App\Models\GenreMovie;
 use App\Models\Movie;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class MovieController extends Controller
 {
@@ -21,7 +20,6 @@ class MovieController extends Controller
 		$movie->description = ['en' => $request->description_en, 'ka' => $request->description_ka];
 		$movie->year = $request->year;
 		$movie->budget = $request->budget;
-		$movie->slug = Str::slug($request->title_en);
 		$movie->user_id = auth()->user()->getAuthIdentifier();
 		if ($request->hasFile('image'))
 		{
@@ -77,8 +75,6 @@ class MovieController extends Controller
 		$movie->description = ['en' => $request->description_en, 'ka' => $request->description_ka];
 		$movie->year = $request->year;
 		$movie->budget = $request->budget;
-		$movie->slug = Str::slug($request->title_en);
-
 		if ($request->hasFile('image'))
 		{
 			File::delete(public_path('images') . $movie->image);

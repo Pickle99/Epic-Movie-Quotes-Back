@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Http\Request;
@@ -49,3 +50,4 @@ Route::delete('movie/{movie}/delete', [MovieController::class, 'destroy'])->name
 Route::delete('quote/{quote}/delete', [QuoteController::class, 'destroy'])->name('quote.destroy')->middleware('auth:api');
 Route::get('feed', [QuoteController::class, 'showAllQuotes'])->name('all.quotes_show')->middleware('auth:api');
 Route::get('quote/{quote}/add-like', [LikeController::class, 'store'])->name('like.store')->middleware('auth:api');
+Route::get('notifications', [NotificationController::class, 'show'])->name('notifications.show')->middleware('auth:api');

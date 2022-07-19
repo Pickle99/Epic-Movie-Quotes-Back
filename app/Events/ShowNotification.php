@@ -2,26 +2,26 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class RemoveLike implements ShouldBroadcast
+class ShowNotification implements ShouldBroadcast
 {
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
-	public $quote;
+	public $notification;
 
 	/**
 	 * Create a new event instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($quote)
+	public function __construct($notification)
 	{
-		$this->quote = $quote;
+		$this->notification = $notification;
 
 		$this->dontBroadcastToCurrentUser();
 	}
@@ -33,6 +33,6 @@ class RemoveLike implements ShouldBroadcast
 	 */
 	public function broadcastOn()
 	{
-		return new Channel('removeLike.' . $this->quote->id);
+		return new PrivateChannel('showNotification.' . $this->notification->user_id);
 	}
 }

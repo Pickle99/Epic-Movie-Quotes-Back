@@ -35,4 +35,9 @@ class Quote extends Model
 	{
 		return $this->hasMany(Comment::class);
 	}
+
+	public function notification()
+	{
+		return $this->hasOne(Notification::class);
+	}
 }

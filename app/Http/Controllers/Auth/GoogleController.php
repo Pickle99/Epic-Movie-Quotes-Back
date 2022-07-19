@@ -15,6 +15,7 @@ class GoogleController extends Controller
 
 	public function redirect(): RedirectResponse
 	{
+		//stateless
 		return Socialite::driver(static::GOOGLE_TYPE)->redirect();
 	}
 

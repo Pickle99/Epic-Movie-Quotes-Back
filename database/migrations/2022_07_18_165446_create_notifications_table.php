@@ -12,15 +12,15 @@ return new class extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('movies', function (Blueprint $table) {
+		Schema::create('notifications', function (Blueprint $table) {
 			$table->id();
-			$table->json('title');
-			$table->json('director');
-			$table->json('description');
+			$table->string('action');
+			$table->string('action_from');
+			$table->string('avatar');
 			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
-			$table->bigInteger('year')->nullable();
-			$table->bigInteger('budget');
-			$table->string('image');
+			$table->foreignId('quote_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('like_id')->nullable()->constrained()->cascadeOnDelete();
+			$table->foreignId('comment_id')->nullable()->constrained()->cascadeOnDelete();
 			$table->timestamps();
 		});
 	}
@@ -32,6 +32,6 @@ return new class extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('movies');
+		Schema::dropIfExists('notifications');
 	}
 };
