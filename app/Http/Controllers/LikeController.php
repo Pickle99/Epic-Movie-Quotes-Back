@@ -9,6 +9,7 @@ use App\Models\Like;
 use App\Models\Notification;
 use App\Models\Quote;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
@@ -34,6 +35,7 @@ class LikeController extends Controller
 		$notification->user_id = $quoteOwner->id;
 		$notification->quote_id = $quote->id;
 		$notification->like_id = $like->id;
+		$notification->created_date = Carbon::now();
 		$notification->save();
 		broadcast(new ShowNotification($notification));
 		broadcast(new AddLike($like));
