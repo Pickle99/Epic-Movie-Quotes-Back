@@ -51,3 +51,5 @@ Route::delete('quote/{quote}/delete', [QuoteController::class, 'destroy'])->name
 Route::get('feed', [QuoteController::class, 'showAllQuotes'])->name('all.quotes_show')->middleware('auth:api');
 Route::get('quote/{quote}/add-like', [LikeController::class, 'store'])->name('like.store')->middleware('auth:api');
 Route::get('notifications', [NotificationController::class, 'show'])->name('notifications.show')->middleware('auth:api');
+Route::get('notifications/mark-all-as-read', [NotificationController::class, 'markAsAllRead'])->name('notification.all-read')->middleware('auth:api');
+Route::get('notification/{notification}/mark-single-as-read', [NotificationController::class, 'markSingleAsRead'])->name('notification.single-read')->middleware('auth:api');

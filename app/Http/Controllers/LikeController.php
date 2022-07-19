@@ -23,11 +23,14 @@ class LikeController extends Controller
 			broadcast(new RemoveLike($quote));
 			return response()->json('Deleted');
 		}
+
 		$like = new Like;
 		$like->user_id = Auth::id();
 		$like->quote_id = $quote->id;
 		$like->save();
+
 		$quoteOwner = User::where('id', $quote->user_id)->first();
+
 		$notification = new Notification;
 		$notification->action = 'like';
 		$notification->action_from = Auth::user()->username;
@@ -36,25 +39,11 @@ class LikeController extends Controller
 		$notification->quote_id = $quote->id;
 		$notification->like_id = $like->id;
 		$notification->created_date = Carbon::now();
+		$notification->notification_phase = 'New';
 		$notification->save();
+
 		broadcast(new ShowNotification($notification));
 		broadcast(new AddLike($like));
 		return $like;
 	}
-
-//	public function like($quote)
-//	{
-//		$like = Like::where(['user_id' =>Auth::id(), 'quote_id' => $quote->id])->first();
-//
-//		if ($like)
-//		{
-//			Like::where(['user_id' =>Auth::id(), 'quote_id' => $quote->id])->delete();
-//			return response()->json('Deleted');
-//		}
-//		$like = new Like;
-//		$like->user_id = Auth::id();
-//		$like->quote_id = $quote->id;
-//		$like->save();
-//		return response()->json('Added');
-//	}
 }
