@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
@@ -53,3 +54,4 @@ Route::get('quote/{quote}/add-like', [LikeController::class, 'store'])->name('li
 Route::get('notifications', [NotificationController::class, 'show'])->name('notifications.show')->middleware('auth:api');
 Route::get('notifications/mark-all-as-read', [NotificationController::class, 'markAsAllRead'])->name('notification.all-read')->middleware('auth:api');
 Route::get('notification/{notification}/mark-single-as-read', [NotificationController::class, 'markSingleAsRead'])->name('notification.single-read')->middleware('auth:api');
+Route::post('quote/{quote}/add-comment', [CommentController::class, 'store'])->name('comment.store')->middleware('auth:api');

@@ -53,7 +53,7 @@ class QuoteController extends Controller
 
 	public function showAllQuotes(): JsonResponse
 	{
-		$quotes = Quote::with(['user', 'movie', 'likes'])->paginate(10);
+		$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])->paginate(10);
 		return response()->json($quotes);
 	}
 
