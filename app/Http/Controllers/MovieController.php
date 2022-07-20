@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
+use App\Http\Resources\MovieResource;
 use App\Models\Genre;
 use App\Models\GenreMovie;
 use App\Models\Movie;
@@ -102,5 +103,11 @@ class MovieController extends Controller
 	{
 		$movie->delete();
 		return response()->json(['message' => 'Movie successfully deleted', 200]);
+	}
+
+	public function showAllMovies(): JsonResponse
+	{
+		$movie = Movie::all();
+		return response()->json(MovieResource::collection($movie));
 	}
 }

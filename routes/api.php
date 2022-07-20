@@ -55,3 +55,5 @@ Route::get('notifications', [NotificationController::class, 'show'])->name('noti
 Route::get('notifications/mark-all-as-read', [NotificationController::class, 'markAsAllRead'])->name('notification.all-read')->middleware('auth:api');
 Route::get('notification/{notification}/mark-single-as-read', [NotificationController::class, 'markSingleAsRead'])->name('notification.single-read')->middleware('auth:api');
 Route::post('quote/{quote}/add-comment', [CommentController::class, 'store'])->name('comment.store')->middleware('auth:api');
+Route::get('all-movies', [MovieController::class, 'showAllMovies'])->name('movies.all_show')->middleware('auth:api');
+Route::post('movie/{movie}/add-quote', [QuoteController::class, 'storeWriteQuote'])->name('write.quote_store')->middleware('auth:api');
