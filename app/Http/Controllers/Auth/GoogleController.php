@@ -53,32 +53,6 @@ class GoogleController extends Controller
 		return $this->respondWithToken($token);
 	}
 
-//	private function createOrUpdateUser($data, $provider)
-//	{
-//		$user = User::where('email', $data->email)->first();
-//
-//		if ($user)
-//		{
-//			$user->update([
-//				'provider'   => $provider,
-//				'provider_id'=> $data->id,
-//			]);
-//		}
-//		if (!$user)
-//		{
-//			$user = User::create([
-//				'username'          => strtolower(str_replace(' ', '', $data->name)),
-//				'email'             => $data->email,
-//				'password'          => Hash::make($data->getName() . '@' . $data->getId()),
-//				'email_verified_at' => Carbon::now(),
-//				'provider'          => $provider,
-//				'provider_id'       => $data->id,
-//			]);
-//		}
-//		$token = auth('api')->login($user);
-//		return $this->respondWithToken($token);
-//	}
-
 	protected function respondWithToken(string $token): JsonResponse
 	{
 		return response()->json([
