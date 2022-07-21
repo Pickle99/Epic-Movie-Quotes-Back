@@ -34,7 +34,7 @@ class CommentController extends Controller
 		$notification->quote_id = $quote->id;
 		$notification->comment_id = $comment->id;
 		$notification->created_date = Carbon::now();
-		$notification->notification_phase = 'New';
+		$notification->notification_state = 'New';
 		$notification->save();
 
 		broadcast(new ShowNotification($notification));

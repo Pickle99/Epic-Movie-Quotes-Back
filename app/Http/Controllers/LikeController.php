@@ -39,7 +39,7 @@ class LikeController extends Controller
 		$notification->quote_id = $quote->id;
 		$notification->like_id = $like->id;
 		$notification->created_date = Carbon::now();
-		$notification->notification_phase = 'New';
+		$notification->notification_state = 'New';
 		$notification->save();
 
 		broadcast(new ShowNotification($notification));

@@ -21,7 +21,7 @@ return new class extends Migration {
 			$table->foreignId('quote_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('like_id')->nullable()->constrained()->cascadeOnDelete();
 			$table->foreignId('comment_id')->nullable()->constrained()->cascadeOnDelete();
-			$table->string('notification_phase')->nullable();
+			$table->string('notification_state')->nullable();
 			$table->timestamp('created_date');
 			$table->timestamps();
 		});

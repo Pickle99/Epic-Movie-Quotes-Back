@@ -26,7 +26,7 @@ class NotificationResource extends JsonResource
 			'comment_id'         => $this->comment_id,
 			'created_at'         => $this->created_at->diffForHumans(),
 			'created_date'       => $this->created_date,
-			'notification_phase' => $this->notification_phase,
+			'notification_state' => $this->notification_state,
 		];
 	}
 }

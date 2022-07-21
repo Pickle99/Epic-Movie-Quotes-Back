@@ -22,7 +22,7 @@ class NotificationController extends Controller
 		$notifications = Notification::where('user_id', $userId)->get();
 		foreach ($notifications as $notification)
 		{
-			$notification->notification_phase = null;
+			$notification->notification_state = null;
 			$notification->save();
 		}
 		return response()->json(['message' => 'Notifications successfully marked as all read!']);
@@ -30,7 +30,7 @@ class NotificationController extends Controller
 
 	public function markSingleAsRead(Notification $notification): JsonResponse
 	{
-		$notification->notification_phase = null;
+		$notification->notification_state = null;
 		$notification->save();
 		return response()->json(['message' => 'Notification successfully marked as read!']);
 	}
