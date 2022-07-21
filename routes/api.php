@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GenreController;
@@ -57,3 +58,6 @@ Route::get('notification/{notification}/mark-single-as-read', [NotificationContr
 Route::post('quote/{quote}/add-comment', [CommentController::class, 'store'])->name('comment.store')->middleware('auth:api');
 Route::get('all-movies', [MovieController::class, 'showAllMovies'])->name('movies.all_show')->middleware('auth:api');
 Route::post('movie/{movie}/add-quote', [QuoteController::class, 'storeWriteQuote'])->name('write.quote_store')->middleware('auth:api');
+
+Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
