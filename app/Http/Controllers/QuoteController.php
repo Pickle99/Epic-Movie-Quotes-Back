@@ -55,6 +55,25 @@ class QuoteController extends Controller
 
 	public function showAllQuotes(): JsonResponse
 	{
+		$str = request('search');
+		if (str_starts_with($str, 'q'))
+		{
+			$search = substr($str, 1);
+			$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])
+				->where('text', 'like', '%' . $search . '%')
+				->paginate(2);
+			return response()->json($quotes);
+		}
+		if (str_starts_with($str, 'm'))
+		{
+			$search = substr($str, 1);
+			$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])
+				->whereHas('movie', function ($q) use ($search) {
+					$q->where('title', 'like', '%' . $search . '%');
+				})
+				->paginate(2);
+			return response()->json($quotes);
+		}
 		$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])->paginate(10);
 		return response()->json($quotes);
 	}
