@@ -42,31 +42,30 @@ class MovieController extends Controller
 			$genreMovie->save();
 		}
 
-		return response()->json('Movie created successfully');
+		return response()->json(new MovieResource($movie));
 	}
 
-	public function showUserMovies(): JsonResponse
+	public function showUserMovies()
 	{
 		$userId = auth()->user()->getAuthIdentifier();
 		$userMovies = Movie::where('user_id', $userId)->get();
-		return response()->json(['movies' => $userMovies]);
+		return MovieResource::collection($userMovies);
 	}
 
-	public function showMovieDescription(int $id): JsonResponse
+	public function showMovieDescription(Movie $movie)
 	{
-		$movie = Movie::with(['genres', 'quotes'])->where('id', $id)->get();
-		return response()->json($movie);
+		$movie = Movie::where('id', $movie->id)->with('quotes')->first();
+		return new MovieResource($movie);
 	}
 
-	public function showMovie(Movie $movie): JsonResponse
+	public function showMovie(Movie $movie)
 	{
-		return response()->json([$movie]);
+		return new MovieResource($movie);
 	}
 
-	public function showMovieWithGenres(Movie $movie): JsonResponse
+	public function showMovieWithGenres(Movie $movie)
 	{
-		$movieWithGenres = Movie::with('genres')->where('id', $movie->id)->get();
-		return response()->json($movieWithGenres);
+		return  new MovieResource($movie);
 	}
 
 	public function update(UpdateMovieRequest $request, Movie $movie): JsonResponse
@@ -105,9 +104,9 @@ class MovieController extends Controller
 		return response()->json(['message' => 'Movie successfully deleted', 200]);
 	}
 
-	public function showAllMovies(): JsonResponse
+	public function showAllMovies()
 	{
 		$movie = Movie::all();
-		return response()->json(MovieResource::collection($movie));
+		return MovieResource::collection($movie);
 	}
 }

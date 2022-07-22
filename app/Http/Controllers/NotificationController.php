@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
-	public function show(): JsonResponse
+	public function show()
 	{
 		$userId = Auth::id();
 		$notifications = Notification::where('user_id', $userId)->get();
-		return response()->json(NotificationResource::collection($notifications));
+		return NotificationResource::collection($notifications);
 	}
 
 	public function markAsAllRead(): JsonResponse

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Http\Requests\StoreWriteQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
+use App\Http\Resources\QuoteResource;
 use App\Models\Movie;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
@@ -32,10 +33,10 @@ class QuoteController extends Controller
 		return response()->json('Movie created successfully');
 	}
 
-	public function showQuote(Quote $quote): JsonResponse
+	public function showQuote(Quote $quote)
 	{
 		$quoteWithUser = Quote::where('id', $quote->id)->with('user')->first();
-		return response()->json([$quoteWithUser]);
+		return new QuoteResource($quoteWithUser);
 	}
 
 	public function update(UpdateQuoteRequest $request, Quote $quote): JsonResponse
@@ -53,7 +54,7 @@ class QuoteController extends Controller
 		return response()->json(['message'=>'Quote updated successfully', 200]);
 	}
 
-	public function showAllQuotes(): JsonResponse
+	public function showAllQuotes()
 	{
 		$str = request('search');
 		if (str_starts_with($str, 'q'))
@@ -61,8 +62,8 @@ class QuoteController extends Controller
 			$search = substr($str, 1);
 			$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])
 				->where('text', 'like', '%' . $search . '%')
-				->paginate(2);
-			return response()->json($quotes);
+				->paginate(3);
+			return QuoteResource::collection($quotes);
 		}
 		if (str_starts_with($str, 'm'))
 		{
@@ -71,11 +72,11 @@ class QuoteController extends Controller
 				->whereHas('movie', function ($q) use ($search) {
 					$q->where('title', 'like', '%' . $search . '%');
 				})
-				->paginate(2);
-			return response()->json($quotes);
+				->paginate(3);
+			return QuoteResource::collection($quotes);
 		}
-		$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])->paginate(10);
-		return response()->json($quotes);
+		$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])->paginate(3);
+		return QuoteResource::collection($quotes);
 	}
 
 	public function destroy(Quote $quote): JsonResponse
@@ -84,7 +85,7 @@ class QuoteController extends Controller
 		return response()->json(['message' => 'Quote deleted', 200]);
 	}
 
-	public function storeWriteQuote(Movie $movie, StoreWriteQuoteRequest $request): JsonResponse
+	public function storeWriteQuote(StoreWriteQuoteRequest $request): JsonResponse
 	{
 		$quote = new Quote();
 		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];

@@ -41,7 +41,7 @@ Route::post('movies', [MovieController::class, 'store'])->name('movies.store')->
 Route::get('genres', [GenreController::class, 'showGenres'])->name('genres.get')->middleware('auth:api');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:api');
 Route::get('user-movies', [MovieController::class, 'showUserMovies'])->name('user.movies')->middleware('auth:api');
-Route::post('movie/{id}', [MovieController::class, 'showMovieDescription'])->name('movie.description')->middleware('auth:api');
+Route::post('movie/{movie}', [MovieController::class, 'showMovieDescription'])->name('movie.description')->middleware('auth:api');
 Route::post('movie/{movie}/quote', [QuoteController::class, 'store'])->name('quote.store')->middleware('auth:api');
 Route::get('movie/{movie}', [MovieController::class, 'showMovie'])->name('show.movie')->middleware('auth:api');
 Route::get('quote/{quote}', [QuoteController::class, 'showQuote'])->name('quote.create')->middleware('auth:api');
@@ -57,7 +57,7 @@ Route::get('notifications/mark-all-as-read', [NotificationController::class, 'ma
 Route::get('notification/{notification}/mark-single-as-read', [NotificationController::class, 'markSingleAsRead'])->name('notification.single-read')->middleware('auth:api');
 Route::post('quote/{quote}/add-comment', [CommentController::class, 'store'])->name('comment.store')->middleware('auth:api');
 Route::get('all-movies', [MovieController::class, 'showAllMovies'])->name('movies.all_show')->middleware('auth:api');
-Route::post('movie/{movie}/add-quote', [QuoteController::class, 'storeWriteQuote'])->name('write.quote_store')->middleware('auth:api');
+Route::post('add-quote', [QuoteController::class, 'storeWriteQuote'])->name('write.quote_store')->middleware('auth:api');
 
 Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
