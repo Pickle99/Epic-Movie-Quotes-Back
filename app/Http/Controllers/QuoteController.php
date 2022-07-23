@@ -54,28 +54,34 @@ class QuoteController extends Controller
 		return response()->json(['message'=>'Quote updated successfully', 200]);
 	}
 
-	public function showAllQuotes()
+	public function showPaginatedQuotes()
 	{
 		$str = request('search');
 		if (str_starts_with($str, 'q'))
 		{
 			$search = substr($str, 1);
-			$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])
-				->where('text', 'like', '%' . $search . '%')
-				->paginate(3);
+			$quotes = Quote::with(['user', 'movie'])
+				->where('text', 'like', '%' . $search . '%')->orderByDesc('created_at')
+				->paginate(1);
 			return QuoteResource::collection($quotes);
 		}
 		if (str_starts_with($str, 'm'))
 		{
 			$search = substr($str, 1);
-			$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])
+			$quotes = Quote::with(['user', 'movie'])
 				->whereHas('movie', function ($q) use ($search) {
 					$q->where('title', 'like', '%' . $search . '%');
-				})
-				->paginate(3);
+				})->orderByDesc('created_at')
+				->paginate(1);
 			return QuoteResource::collection($quotes);
 		}
-		$quotes = Quote::with(['user', 'movie', 'likes', 'comments'])->paginate(3);
+		$quotes = Quote::with(['user', 'movie'])->orderByDesc('created_at')->paginate(1);
+		return QuoteResource::collection($quotes);
+	}
+
+	public function showAllQuotes()
+	{
+		$quotes = Quote::with(['user', 'movie'])->orderByDesc('created_at')->get();
 		return QuoteResource::collection($quotes);
 	}
 
