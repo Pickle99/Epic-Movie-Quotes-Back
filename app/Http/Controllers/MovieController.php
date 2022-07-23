@@ -72,7 +72,7 @@ class MovieController extends Controller
 	{
 		if (auth()->user()->id !== $movie->user_id)
 		{
-			return response()->json(['error' => 'You dont have permission to edit other people movie', 404]);
+			return response()->json(['forbidden' => 'You dont have permission to edit other people movie'], 403);
 		}
 
 		$movie->title = ['en' => $request->title_en, 'ka' => $request->title_ka];
@@ -100,17 +100,17 @@ class MovieController extends Controller
 			$genreMovie->genre_id = $currentGenreId;
 			$genreMovie->save();
 		}
-		return response()->json(['message' => 'Movie updated successfully!', 200]);
+		return response()->json(['message' => 'Movie updated successfully!']);
 	}
 
 	public function destroy(Movie $movie): JsonResponse
 	{
 		if (auth()->user()->id !== $movie->user_id)
 		{
-			return response()->json(['error' => 'You dont have permission to delete other people movie', 404]);
+			return response()->json(['forbidden' => 'You dont have permission to delete other people movie'], 403);
 		}
 		$movie->delete();
-		return response()->json(['message' => 'Movie successfully deleted', 200]);
+		return response()->json(['message' => 'Movie successfully deleted']);
 	}
 
 	public function showAllMovies()

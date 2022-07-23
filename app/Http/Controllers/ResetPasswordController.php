@@ -23,7 +23,7 @@ class ResetPasswordController extends Controller
 			'token'      => $token,
 		]);
 		Mail::to($request->email)->send(new ResetPasswordMail($passwordReset));
-		return response()->json('Password reset email successfully sent to your email', 200);
+		return response()->json(['message' => 'Password reset email successfully sent to your email']);
 	}
 
 	public function updatePassword(PasswordResetRequest $request, string $token): JsonResponse
@@ -34,6 +34,6 @@ class ResetPasswordController extends Controller
 			'password' => bcrypt($request->password),
 		]);
 		$passwordReset->delete();
-		return response()->json('Password changed successfully', 200);
+		return response()->json(['message' => 'Password reset successfully']);
 	}
 }

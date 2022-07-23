@@ -43,7 +43,7 @@ class QuoteController extends Controller
 	{
 		if (auth()->user()->id !== $quote->user_id)
 		{
-			return response()->json(['error' => 'You dont have permission to edit other people quotes', 404]);
+			return response()->json(['forbidden' => 'You dont have permission to edit other people quotes'], 403);
 		}
 		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
 		if ($request->hasFile('image'))
@@ -93,10 +93,10 @@ class QuoteController extends Controller
 	{
 		if (auth()->user()->id !== $quote->user_id)
 		{
-			return response()->json(['error' => 'You dont have permission to delete other people quotes', 404]);
+			return response()->json(['forbidden' => 'You dont have permission to delete other people quotes'], 403);
 		}
 		$quote->delete();
-		return response()->json(['message' => 'Quote deleted', 200]);
+		return response()->json(['message' => 'Quote deleted']);
 	}
 
 	public function storeWriteQuote(StoreWriteQuoteRequest $request): JsonResponse
