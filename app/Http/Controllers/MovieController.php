@@ -70,6 +70,11 @@ class MovieController extends Controller
 
 	public function update(UpdateMovieRequest $request, Movie $movie): JsonResponse
 	{
+		if (auth()->user()->id !== $movie->user_id)
+		{
+			return response()->json(['error' => 'You dont have permission to edit other people movie', 404]);
+		}
+
 		$movie->title = ['en' => $request->title_en, 'ka' => $request->title_ka];
 		$movie->director = ['en' => $request->director_en, 'ka' => $request->director_ka];
 		$movie->description = ['en' => $request->description_en, 'ka' => $request->description_ka];
@@ -100,6 +105,10 @@ class MovieController extends Controller
 
 	public function destroy(Movie $movie): JsonResponse
 	{
+		if (auth()->user()->id !== $movie->user_id)
+		{
+			return response()->json(['error' => 'You dont have permission to delete other people movie', 404]);
+		}
 		$movie->delete();
 		return response()->json(['message' => 'Movie successfully deleted', 200]);
 	}

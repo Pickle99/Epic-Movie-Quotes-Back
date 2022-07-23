@@ -41,6 +41,10 @@ class QuoteController extends Controller
 
 	public function update(UpdateQuoteRequest $request, Quote $quote): JsonResponse
 	{
+		if (auth()->user()->id !== $quote->user_id)
+		{
+			return response()->json(['error' => 'You dont have permission to edit other people quotes', 404]);
+		}
 		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
 		if ($request->hasFile('image'))
 		{
@@ -87,6 +91,10 @@ class QuoteController extends Controller
 
 	public function destroy(Quote $quote): JsonResponse
 	{
+		if (auth()->user()->id !== $quote->user_id)
+		{
+			return response()->json(['error' => 'You dont have permission to delete other people quotes', 404]);
+		}
 		$quote->delete();
 		return response()->json(['message' => 'Quote deleted', 200]);
 	}
