@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreQuoteRequest;
-use App\Http\Requests\StoreWriteQuoteRequest;
-use App\Http\Requests\UpdateQuoteRequest;
+use App\Http\Requests\Quote\StoreQuoteRequest;
+use App\Http\Requests\Quote\StoreWriteQuoteRequest;
+use App\Http\Requests\Quote\UpdateQuoteRequest;
 use App\Http\Resources\QuoteResource;
 use App\Models\Movie;
 use App\Models\Quote;

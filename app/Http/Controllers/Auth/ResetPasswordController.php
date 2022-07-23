@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\ForgotPasswordRequest;
-use App\Http\Requests\PasswordResetRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Http\Requests\Auth\PasswordResetRequest;
 use App\Mail\ResetPasswordMail;
 use App\Models\PasswordReset;
 use App\Models\User;

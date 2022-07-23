@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreMovieRequest;
-use App\Http\Requests\UpdateMovieRequest;
+use App\Http\Requests\Movie\StoreMovieRequest;
+use App\Http\Requests\Movie\UpdateMovieRequest;
 use App\Http\Resources\MovieResource;
 use App\Models\Genre;
 use App\Models\GenreMovie;
