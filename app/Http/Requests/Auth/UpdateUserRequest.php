@@ -5,7 +5,7 @@ namespace App\Http\Requests\Auth;
 use App\Rules\LowerCase;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PasswordResetRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -25,15 +25,17 @@ class PasswordResetRequest extends FormRequest
 	public function rules()
 	{
 		return [
+			'username' => ['required', 'min:3', 'max:15', 'alpha_num', 'regex:/^[A-Za-z0-9]+$/', new LowerCase()],
 			'email'    => 'required|email',
-			'token'    => 'required',
-			'password' => ['required', 'min:8', 'max:15', 'confirmed', 'alpha_num', 'regex:/^[A-Za-z0-9]+$/', new LowerCase()],
+			'password' => ['required', 'min:8', 'max:15', 'alpha_num', 'regex:/^[A-Za-z0-9]+$/', new LowerCase()],
+			'avatar'   => 'image',
 		];
 	}
 
 	public function messages()
 	{
 		return [
+			'username.regex' => 'Username field must be alpha-numeric',
 			'password.regex' => 'Password field must be alpha-numeric',
 		];
 	}

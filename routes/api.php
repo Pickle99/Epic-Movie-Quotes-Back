@@ -10,6 +10,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,9 @@ Route::middleware('auth:api')->group(function () {
 	Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 	Route::get('genres', [GenreController::class, 'showGenres'])->name('genres.get');
+
+	Route::get('user/{user}', [UserController::class, 'show'])->middleware('auth:api');
+	Route::post('user/{user}/update', [UserController::class, 'update'])->middleware('auth:api');
 
 	Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
 	Route::get('all-movies', [MovieController::class, 'showAllMovies'])->name('movies.all_show');
