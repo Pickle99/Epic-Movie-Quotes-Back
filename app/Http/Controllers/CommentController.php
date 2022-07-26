@@ -26,18 +26,21 @@ class CommentController extends Controller
 
 		$quoteOwner = User::where('id', $quote->user_id)->first();
 
-		$notification = new Notification;
-		$notification->action = 'comment';
-		$notification->action_from = Auth::user()->username;
-		$notification->avatar = Auth::user()->avatar;
-		$notification->user_id = $quoteOwner->id;
-		$notification->quote_id = $quote->id;
-		$notification->comment_id = $comment->id;
-		$notification->created_date = Carbon::now();
-		$notification->notification_state = 'New';
-		$notification->save();
+		if ($quote->user_id !== auth()->user()->id)
+		{
+			$notification = new Notification;
+			$notification->action = 'comment';
+			$notification->action_from = Auth::user()->username;
+			$notification->avatar = Auth::user()->avatar;
+			$notification->user_id = $quoteOwner->id;
+			$notification->quote_id = $quote->id;
+			$notification->comment_id = $comment->id;
+			$notification->created_date = Carbon::now();
+			$notification->notification_state = 'New';
+			$notification->save();
 
-		broadcast(new ShowNotification($notification));
+			broadcast(new ShowNotification($notification));
+		}
 		broadcast(new AddComment($comment));
 		return $comment;
 	}

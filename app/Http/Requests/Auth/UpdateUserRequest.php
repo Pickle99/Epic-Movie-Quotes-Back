@@ -25,9 +25,9 @@ class UpdateUserRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'username' => ['required', 'min:3', 'max:15', 'alpha_num', 'regex:/^[A-Za-z0-9]+$/', new LowerCase()],
-			'email'    => 'required|email',
-			'password' => ['required', 'min:8', 'max:15', 'alpha_num', 'regex:/^[A-Za-z0-9]+$/', new LowerCase()],
+			'username' => ['min:3', 'max:15', 'alpha_num', 'regex:/^[A-Za-z0-9]+$/', new LowerCase()],
+			'email'    => 'email',
+			'password' => ['min:8', 'max:15', 'alpha_num', 'regex:/^[A-Za-z0-9]+$/', new LowerCase()],
 			'avatar'   => 'image',
 		];
 	}

@@ -16,9 +16,18 @@ class UserController extends Controller
 
 	public function update(User $user, UpdateUserRequest $request)
 	{
-		$user->username = $request->username;
-		$user->email = $request->email;
-		$user->password = bcrypt($request->password);
+		if ($request->has('username'))
+		{
+			$user->username = $request->username;
+		}
+		if ($request->has('email'))
+		{
+			$user->email = $request->email;
+		}
+		if ($request->has('password'))
+		{
+			$user->password = bcrypt($request->password);
+		}
 		if ($request->hasFile('avatar'))
 		{
 			File::delete(public_path('images/avatar/custom') . $user->avatar);
