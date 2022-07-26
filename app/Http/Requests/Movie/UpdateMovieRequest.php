@@ -25,13 +25,13 @@ class UpdateMovieRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'title_en'             => 'required',
-			'title_ka'             => 'required',
+			'title_en'             => 'required|regex:/^[A-Za-z]+$/',
+			'title_ka'             => 'required|regex:/^[ა-ჰ]+$/',
 			'genres.*'             => ['required', Rule::in(['Horror', 'Comedy', 'Thriller', 'Action', 'Drama', 'Romantic'])],
-			'director_en'          => 'required',
-			'director_ka'          => 'required',
-			'description_en'       => 'required',
-			'description_ka'       => 'required',
+			'director_en'          => 'required|regex:/^[A-Za-z]+$/',
+			'director_ka'          => 'required|regex:/^[ა-ჰ]+$/',
+			'description_en'       => 'required|regex:/^[A-Za-z]+$/',
+			'description_ka'       => 'required|regex:/^[ა-ჰ]+$/',
 			'year'                 => 'integer',
 			'budget'               => 'required|integer',
 			'image'                => 'image',
