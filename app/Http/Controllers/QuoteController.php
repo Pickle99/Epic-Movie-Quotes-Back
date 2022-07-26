@@ -10,7 +10,9 @@ use App\Models\Movie;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 
 class QuoteController extends Controller
 {
@@ -63,14 +65,14 @@ class QuoteController extends Controller
 		return response()->json(['message'=>'Quote updated successfully', 200]);
 	}
 
-	public function showPaginatedQuotes()
+	public function showPaginatedQuotes(Request $request)
 	{
-		$str = request('search');
+		$str = $request->search;
 		if (str_starts_with($str, 'q'))
 		{
 			$search = substr($str, 1);
 			$quotes = Quote::with(['user', 'movie'])
-				->where('text', 'like', '%' . $search . '%')->orderByDesc('created_at')
+				->where(DB::raw('lower(text)'), 'like', '%' . strtolower($search) . '%')
 				->paginate(1);
 			return QuoteResource::collection($quotes);
 		}
@@ -79,7 +81,7 @@ class QuoteController extends Controller
 			$search = substr($str, 1);
 			$quotes = Quote::with(['user', 'movie'])
 				->whereHas('movie', function ($q) use ($search) {
-					$q->where('title', 'like', '%' . $search . '%');
+					$q->where(DB::raw('lower(title)'), 'like', '%' . strtolower($search) . '%');
 				})->orderByDesc('created_at')
 				->paginate(1);
 			return QuoteResource::collection($quotes);
