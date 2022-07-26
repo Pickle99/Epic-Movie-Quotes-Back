@@ -16,6 +16,11 @@ class QuoteController extends Controller
 {
 	public function store(StoreQuoteRequest $request, Movie $movie): JsonResponse
 	{
+		if (auth()->user()->id !== $movie->user_id)
+		{
+			return response()->json(['forbidden' => 'You dont have permission to add quotes here'], 403);
+		}
+
 		$quote = new Quote;
 		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
 		$quote->movie_id = $movie->id;

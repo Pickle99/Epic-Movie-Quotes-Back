@@ -10,7 +10,12 @@ class AuthController extends Controller
 {
 	public function login(LoginRequest $request): JsonResponse
 	{
-		$token = auth()->attempt($request->all());
+		$field = filter_var($request->user, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+		$token = auth()->attempt([
+			$field     => $request->user,
+			'password' => $request->password,
+		]);
 
 		if (!$token)
 		{

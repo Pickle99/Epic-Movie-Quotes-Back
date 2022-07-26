@@ -25,13 +25,13 @@ class StoreMovieRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'title_en'             => 'required|regex:/^[A-Za-z]+$/',
-			'title_ka'             => 'required|regex:/^[ა-ჰ]+$/',
+			'title_en'             => 'required|regex:/^[A-Za-z ]+$/',
+			'title_ka'             => 'required|regex:/^[ა-ჰ ]+$/',
 			'genres.*'             => ['required', Rule::in(['Horror', 'Comedy', 'Thriller', 'Action', 'Drama', 'Romantic'])],
-			'director_en'          => 'required|regex:/^[A-Za-z]+$/',
-			'director_ka'          => 'required|regex:/^[ა-ჰ]+$/',
-			'description_en'       => 'required|regex:/^[A-Za-z]+$/',
-			'description_ka'       => 'required|regex:/^[ა-ჰ]+$/',
+			'director_en'          => 'required|regex:/^[A-Za-z ]+$/',
+			'director_ka'          => 'required|regex:/^[ა-ჰ ]+$/',
+			'description_en'       => 'required|regex:/^[A-Za-z ]+$/',
+			'description_ka'       => 'required|regex:/^[ა-ჰ ]+$/',
 			'year'                 => 'integer',
 			'budget'               => 'required|integer',
 			'image'                => 'required|image',
