@@ -16,13 +16,23 @@ class AuthController extends Controller
 			$field     => $request->user,
 			'password' => $request->password,
 		]);
-
 		if (!$token)
 		{
 			return response()->json(['error' => 'Wrong Credentials!'], 404);
 		}
 
-		return $this->respondWithToken($token);
+		$time = 0;
+
+		if (!$request->remember_token)
+		{
+			$time = 60;
+		}
+		else
+		{
+			$time = 360;
+		}
+
+		return $this->respondWithToken($token, $time);
 	}
 
 	public function logout(): JsonResponse
@@ -31,12 +41,12 @@ class AuthController extends Controller
 		return response()->json('Successfully logged out!');
 	}
 
-	protected function respondWithToken(string $token): JsonResponse
+	protected function respondWithToken(string $token, $time): JsonResponse
 	{
 		return response()->json([
 			'access_token' => $token,
 			'token_type'   => 'bearer',
-			'expires_in'   => auth()->factory()->getTTL() * 60,
+			'expires_in'   => auth()->factory()->getTTL() * $time,
 			'user'         => auth()->user(),
 		]);
 	}
