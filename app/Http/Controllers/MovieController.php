@@ -65,7 +65,7 @@ class MovieController extends Controller
 
 	public function showMovieWithGenres(Movie $movie)
 	{
-		return  new MovieResource($movie);
+		return new MovieResource($movie);
 	}
 
 	public function update(UpdateMovieRequest $request, Movie $movie): JsonResponse
