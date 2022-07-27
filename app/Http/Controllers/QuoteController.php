@@ -73,7 +73,7 @@ class QuoteController extends Controller
 			$search = substr($str, 1);
 			$quotes = Quote::with(['user', 'movie'])
 				->where(DB::raw('lower(text)'), 'like', '%' . strtolower($search) . '%')
-				->paginate(1);
+				->paginate(3);
 			return QuoteResource::collection($quotes);
 		}
 		if (str_starts_with($str, 'm'))
@@ -83,10 +83,10 @@ class QuoteController extends Controller
 				->whereHas('movie', function ($q) use ($search) {
 					$q->where(DB::raw('lower(title)'), 'like', '%' . strtolower($search) . '%');
 				})->orderByDesc('created_at')
-				->paginate(1);
+				->paginate(3);
 			return QuoteResource::collection($quotes);
 		}
-		$quotes = Quote::with(['user', 'movie'])->orderByDesc('created_at')->paginate(1);
+		$quotes = Quote::with(['user', 'movie'])->orderByDesc('created_at')->paginate(3);
 		return QuoteResource::collection($quotes);
 	}
 
