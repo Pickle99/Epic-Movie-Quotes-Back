@@ -48,7 +48,7 @@ class MovieController extends Controller
 	public function showUserMovies()
 	{
 		$userId = auth()->user()->getAuthIdentifier();
-		$userMovies = Movie::where('user_id', $userId)->get();
+		$userMovies = Movie::where('user_id', $userId)->with('quotes')->get();
 		return MovieResource::collection($userMovies);
 	}
 
