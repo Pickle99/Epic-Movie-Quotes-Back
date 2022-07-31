@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\File;
 
 class MovieController extends Controller
 {
-	public function store(StoreMovieRequest $request): JsonResponse
+	public function store(StoreMovieRequest $request)
 	{
 		$movie = new Movie;
 		$movie->title = ['en' => $request->title_en, 'ka' => $request->title_ka];
@@ -42,7 +42,7 @@ class MovieController extends Controller
 			$genreMovie->save();
 		}
 
-		return response()->json(new MovieResource($movie));
+		return new MovieResource($movie);
 	}
 
 	public function showUserMovies()
