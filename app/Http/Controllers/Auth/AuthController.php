@@ -21,8 +21,6 @@ class AuthController extends Controller
 			return response()->json(['error' => 'Wrong Credentials!'], 404);
 		}
 
-		$time = 0;
-
 		if (!$request->remember_token)
 		{
 			$time = 60;
@@ -38,7 +36,7 @@ class AuthController extends Controller
 	public function logout(): JsonResponse
 	{
 		auth()->logout();
-		return response()->json('Successfully logged out!');
+		return response()->json(['message' => 'Successfully logged out!'], 200);
 	}
 
 	protected function respondWithToken(string $token, $time): JsonResponse
