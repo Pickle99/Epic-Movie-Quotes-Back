@@ -12,18 +12,16 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-	const GOOGLE_TYPE = 'google';
-
 	public function redirect(): JsonResponse
 	{
-		$url = Socialite::driver(static::GOOGLE_TYPE)->stateless()
+		$url = Socialite::driver('google')->stateless()
 			->redirect()->getTargetUrl();
 		return response()->json(['url' => $url]);
 	}
 
 	public function callback(): JsonResponse
 	{
-		$socialUser = Socialite::driver(static::GOOGLE_TYPE)->stateless()->user();
+		$socialUser = Socialite::driver('google')->stateless()->user();
 		$user = User::where('email', $socialUser->email)->first();
 		$dir = 'images/avatar';
 		if ($files = Storage::disk('web')->allFiles($dir))
@@ -33,7 +31,7 @@ class GoogleController extends Controller
 		if ($user)
 		{
 			$user->update([
-				'provider'   => static::GOOGLE_TYPE,
+				'provider'   => 'google',
 				'provider_id'=> $socialUser->id,
 			]);
 		}
@@ -45,7 +43,7 @@ class GoogleController extends Controller
 				'password'          => Hash::make($socialUser->getName() . '@' . $socialUser->getId()),
 				'email_verified_at' => Carbon::now(),
 				'avatar'            => $path,
-				'provider'          => static::GOOGLE_TYPE,
+				'provider'          => 'google',
 				'provider_id'       => $socialUser->id,
 			]);
 		}
