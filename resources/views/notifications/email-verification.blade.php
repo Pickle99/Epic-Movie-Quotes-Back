@@ -8,7 +8,7 @@
 <body style="background-color: #0D0B14;">
 <div style="color: white; font-size:20px;">
     <div style="text-align:center; margin-top:100px;">
-        <img src="{{asset('/images/quote.png')}}" alt="img">
+        <img src="{{(config('app.front_url').'/images/quote.png')}}" alt="img">
         <p style="color:#DDCCAA;">Movie Quotes</p>
     </div>
    <div style="margin-top:180px; margin-left: 100px">
@@ -16,7 +16,7 @@
        <p style="margin-top: 40px; margin-bottom:60px;">Thanks for joining Movie quotes! We really appreciate it. Please click the button below to verify your account:</p>
        <a href="{{config('app.front_url')}}/successfully-verified/{{$user->token}}/" style="text-decoration:none; color:white; padding: 10px 20px; background-color: #E31221;">Verify account</a>
        <p style="margin-top:60px; margin-bottom:50px">If clicking doesn't work, you can try copying and pasting it to your browser:</p>
-           <a style="margin-top:20px; color:#DDCCAA;" href="{{config('app.front_url')}}/successfully-verified/{{$user->token}}/">http://localhost:3000/successfully-verified/{{$user->token}}/</a>
+           <a style="margin-top:20px; color:#DDCCAA;" href="{{config('app.front_url')}}/successfully-verified/{{$user->token}}/">{{config('app.front_url')}}/successfully-verified/{{$user->token}}/</a>
        <p style="margin-top:50px">If you have any problems, please contact us: support@moviequotes.ge</p>
        <p style="margin-top:35px;">MovieQuotes Crew</p>
    </div>
