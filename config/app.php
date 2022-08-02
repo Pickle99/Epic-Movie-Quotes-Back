@@ -40,8 +40,8 @@ return [
 	|
 	*/
 
-	'debug' => (bool) env('APP_DEBUG', false),
-
+	'debug'     => (bool) env('APP_DEBUG', false),
+	'front_url' => env('FRONT_URL'),
 	/*
 	|--------------------------------------------------------------------------
 	| Application URL

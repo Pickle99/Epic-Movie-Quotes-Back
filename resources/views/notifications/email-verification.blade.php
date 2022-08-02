@@ -14,9 +14,9 @@
    <div style="margin-top:180px; margin-left: 100px">
        <p>Hola {{$user->username}}</p>
        <p style="margin-top: 40px; margin-bottom:60px;">Thanks for joining Movie quotes! We really appreciate it. Please click the button below to verify your account:</p>
-       <a href="http://localhost:3000/successfully-verified/{{$user->token}}/" style="text-decoration:none; color:white; padding: 10px 20px; background-color: #E31221;">Verify account</a>
+       <a href="{{config('app.front_url')}}/successfully-verified/{{$user->token}}/" style="text-decoration:none; color:white; padding: 10px 20px; background-color: #E31221;">Verify account</a>
        <p style="margin-top:60px; margin-bottom:50px">If clicking doesn't work, you can try copying and pasting it to your browser:</p>
-           <a style="margin-top:20px; color:#DDCCAA;" href="http://localhost:3000/successfully-verified/{{$user->token}}/">http://localhost:3000/successfully-verified/{{$user->token}}/</a>
+           <a style="margin-top:20px; color:#DDCCAA;" href="{{config('app.front_url')}}/successfully-verified/{{$user->token}}/">http://localhost:3000/successfully-verified/{{$user->token}}/</a>
        <p style="margin-top:50px">If you have any problems, please contact us: support@moviequotes.ge</p>
        <p style="margin-top:35px;">MovieQuotes Crew</p>
    </div>
