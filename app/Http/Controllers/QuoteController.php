@@ -37,7 +37,7 @@ class QuoteController extends Controller
 		}
 		$quote->save();
 
-		return response()->json('Movie created successfully');
+		return response()->json(['message' => 'Movie created successfully']);
 	}
 
 	public function showQuote(Quote $quote)
@@ -62,7 +62,7 @@ class QuoteController extends Controller
 			$quote->image = 'images/' . $filename;
 		}
 		$quote->update();
-		return response()->json(['message'=>'Quote updated successfully', 200]);
+		return response()->json(['message'=>'Quote updated successfully']);
 	}
 
 	public function showPaginatedQuotes(Request $request)

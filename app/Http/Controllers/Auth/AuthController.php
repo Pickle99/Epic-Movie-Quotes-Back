@@ -36,7 +36,7 @@ class AuthController extends Controller
 	public function logout(): JsonResponse
 	{
 		auth()->logout();
-		return response()->json(['message' => 'Successfully logged out!'], 200);
+		return response()->json(['message' => 'Successfully logged out!']);
 	}
 
 	protected function respondWithToken(string $token, $time): JsonResponse

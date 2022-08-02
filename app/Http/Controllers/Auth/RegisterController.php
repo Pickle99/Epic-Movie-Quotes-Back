@@ -29,7 +29,7 @@ class RegisterController extends Controller
 			'avatar'   => $path,
 		]);
 		Mail::to($user->email)->send(new VerifyEmail($user));
-		return response()->json('User successfully registered!', 200);
+		return response()->json(['message' => 'User successfully registered!']);
 	}
 
 	public function verifyEmail(string $token): JsonResponse
