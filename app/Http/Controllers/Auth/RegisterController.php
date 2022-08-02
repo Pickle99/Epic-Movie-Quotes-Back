@@ -34,19 +34,15 @@ class RegisterController extends Controller
 
 	public function verifyEmail(string $token): JsonResponse
 	{
-		$user = User::where('token', $token)->first();
-		if (isset($user))
+		$user = User::where('token', $token)->firstOrFail();
+		if (!$user->email_verified_at)
 		{
-			if (!$user->email_verified_at)
-			{
-				$user->email_verified_at = Carbon::now();
-				$user->save();
-				$token = auth()->login($user);
-				return $this->respondWithToken($token);
-			}
-			return response()->json(['error'=>'User already verified'], 404);
+			$user->email_verified_at = Carbon::now();
+			$user->save();
+			$token = auth()->login($user);
+			return $this->respondWithToken($token);
 		}
-		return response()->json(['error' => 'User doesnt exist'], 404);
+		return response()->json(['error'=>'User already verified'], 404);
 	}
 
 	protected function respondWithToken(string $token): JsonResponse
