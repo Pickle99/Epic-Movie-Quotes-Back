@@ -55,7 +55,6 @@ Route::middleware('auth:api')->group(function () {
 		Route::get('user-movies', 'showUserMovies')->name('user.movies');
 		Route::get('movie-description/{movie}', 'showMovieDescription')->name('movie.description');
 		Route::get('movie/{movie}', 'showMovie')->name('show.movie');
-		Route::get('movie/{movie}/genres', 'showMovieWithGenres')->name('movie.genres_show');
 		Route::post('movie/{movie}/update', 'update')->name('movie.update');
 		Route::delete('movie/{movie}/delete', 'destroy')->name('movie.destroy');
 	});

@@ -33,7 +33,6 @@ class MovieController extends Controller
 			'user_id' => auth()->user()->getAuthIdentifier(),
 			'image'   => $request->image,
 		]);
-
 		if ($request->hasFile('image'))
 		{
 			File::delete(public_path('images/') . $movie->image);
@@ -43,7 +42,6 @@ class MovieController extends Controller
 			$movie->image = 'images/' . $filename;
 			$movie->save();
 		}
-
 		$genres = $request->genres;
 		foreach ($genres as $genre)
 		{
@@ -71,11 +69,6 @@ class MovieController extends Controller
 	}
 
 	public function showMovie(Movie $movie)
-	{
-		return new MovieResource($movie);
-	}
-
-	public function showMovieWithGenres(Movie $movie)
 	{
 		return new MovieResource($movie);
 	}

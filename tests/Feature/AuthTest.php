@@ -59,7 +59,7 @@ class AuthTest extends TestCase
 		$email = 'admin@gmail.com';
 		$password = '11111';
 
-		$user = User::factory()->create(
+		User::factory()->create(
 			[
 				'email'             => $email,
 				'password'          => bcrypt($password),
@@ -82,7 +82,7 @@ class AuthTest extends TestCase
 		$email = 'admin@gmail.com';
 		$password = '11111';
 
-		$user = User::factory()->create(
+		User::factory()->create(
 			[
 				'email'             => $email,
 				'password'          => bcrypt($password),
@@ -104,7 +104,7 @@ class AuthTest extends TestCase
 	{
 		$email = 'babakaka@gmail.com';
 		$password = '123123123';
-		$user = User::factory()->create(
+		User::factory()->create(
 			[
 				'email'             => $email,
 				'password'          => bcrypt($password),
