@@ -42,6 +42,6 @@ class CommentController extends Controller
 			broadcast(new ShowNotification($notification));
 		}
 		broadcast(new AddComment($comment));
-		return $comment;
+		return response()->json(['message' => 'Comment added successfully']);
 	}
 }

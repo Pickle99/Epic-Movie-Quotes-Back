@@ -47,6 +47,6 @@ class LikeController extends Controller
 			broadcast(new ShowNotification($notification));
 		}
 		broadcast(new AddLike($like));
-		return $like;
+		return response()->json(['message' => 'Like added successfully']);
 	}
 }
