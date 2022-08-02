@@ -29,6 +29,7 @@ class UserController extends Controller
 			$filename = $file->getClientOriginalName();
 			$file->move('images/avatar/custom/', $filename);
 			$user->avatar = 'images/avatar/custom/' . $filename;
+			$user->save();
 		}
 		return new UserResource($user);
 	}

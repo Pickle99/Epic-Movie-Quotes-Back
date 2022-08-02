@@ -10,11 +10,12 @@ use App\Models\Notification;
 use App\Models\Quote;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-	public function store(Quote $quote)
+	public function store(Quote $quote): JsonResponse
 	{
 		$like = Like::where(['user_id' =>Auth::id(), 'quote_id' => $quote->id])->first();
 		if ($like)
@@ -23,26 +24,25 @@ class LikeController extends Controller
 			broadcast(new RemoveLike($quote));
 			return response()->json('Deleted');
 		}
-
-		$like = new Like;
-		$like->user_id = Auth::id();
-		$like->quote_id = $quote->id;
-		$like->save();
+		$like = Like::create([
+			'user_id'  => Auth::id(),
+			'quote_id' => $quote->id,
+		]);
 
 		$quoteOwner = User::where('id', $quote->user_id)->first();
 
 		if ($quote->user_id !== auth()->user()->id)
 		{
-			$notification = new Notification;
-			$notification->action = 'like';
-			$notification->action_from = Auth::user()->username;
-			$notification->avatar = Auth::user()->avatar;
-			$notification->user_id = $quoteOwner->id;
-			$notification->quote_id = $quote->id;
-			$notification->like_id = $like->id;
-			$notification->created_date = Carbon::now();
-			$notification->notification_state = 'New';
-			$notification->save();
+			$notification = Notification::create([
+				'action'             => 'like',
+				'action_from'        => Auth::user()->username,
+				'avatar'             => Auth::user()->avatar,
+				'user_id'            => $quoteOwner->id,
+				'quote_id'           => $quote->id,
+				'comment_id'         => $like->id,
+				'created_date'       => Carbon::now(),
+				'notification_state' => 'New',
+			]);
 
 			broadcast(new ShowNotification($notification));
 		}

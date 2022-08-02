@@ -15,13 +15,25 @@ class MovieController extends Controller
 {
 	public function store(StoreMovieRequest $request)
 	{
-		$movie = new Movie;
-		$movie->title = ['en' => $request->title_en, 'ka' => $request->title_ka];
-		$movie->director = ['en' => $request->director_en, 'ka' => $request->director_ka];
-		$movie->description = ['en' => $request->description_en, 'ka' => $request->description_ka];
-		$movie->year = $request->year;
-		$movie->budget = $request->budget;
-		$movie->user_id = auth()->user()->getAuthIdentifier();
+		$movie = Movie::create([
+			'title' => [
+				'en' => $request->title_en,
+				'ka' => $request->title_ka,
+			],
+			'director' => [
+				'en' => $request->director_en,
+				'ka' => $request->director_ka,
+			],
+			'description' => [
+				'en' => $request->description_en,
+				'ka' => $request->description_ka,
+			],
+			'year'    => $request->year,
+			'budget'  => $request->budget,
+			'user_id' => auth()->user()->getAuthIdentifier(),
+			'image'   => $request->image,
+		]);
+
 		if ($request->hasFile('image'))
 		{
 			File::delete(public_path('images/') . $movie->image);
@@ -29,17 +41,17 @@ class MovieController extends Controller
 			$filename = $file->getClientOriginalName();
 			$file->move('images/', $filename);
 			$movie->image = 'images/' . $filename;
+			$movie->save();
 		}
-		$movie->save();
 
 		$genres = $request->genres;
 		foreach ($genres as $genre)
 		{
 			$currentGenreId = Genre::where('name', $genre)->first()->id;
-			$genreMovie = new GenreMovie();
-			$genreMovie->movie_id = $movie->id;
-			$genreMovie->genre_id = $currentGenreId;
-			$genreMovie->save();
+			GenreMovie::create([
+				'movie_id' => $movie->id,
+				'genre_id' => $currentGenreId,
+			]);
 		}
 
 		return new MovieResource($movie);
@@ -74,12 +86,22 @@ class MovieController extends Controller
 		{
 			return response()->json(['forbidden' => 'You dont have permission to edit other people movie'], 403);
 		}
-
-		$movie->title = ['en' => $request->title_en, 'ka' => $request->title_ka];
-		$movie->director = ['en' => $request->director_en, 'ka' => $request->director_ka];
-		$movie->description = ['en' => $request->description_en, 'ka' => $request->description_ka];
-		$movie->year = $request->year;
-		$movie->budget = $request->budget;
+		$movie->update([
+			'title' => [
+				'en' => $request->title_en,
+				'ka' => $request->title_ka,
+			],
+			'director' => [
+				'en' => $request->director_en,
+				'ka' => $request->director_ka,
+			],
+			'description' => [
+				'en' => $request->description_en,
+				'ka' => $request->description_ka,
+			],
+			'year'    => $request->year,
+			'budget'  => $request->budget,
+		]);
 		if ($request->hasFile('image'))
 		{
 			File::delete(public_path('images') . $movie->image);
@@ -87,9 +109,9 @@ class MovieController extends Controller
 			$filename = $file->getClientOriginalName();
 			$file->move('images/', $filename);
 			$movie->image = 'images/' . $filename;
+			$movie->save();
 		}
 
-		$movie->update();
 		GenreMovie::where('movie_id', $movie->id)->delete();
 		$genres = $request->genres;
 		foreach ($genres as $genre)

@@ -23,10 +23,15 @@ class QuoteController extends Controller
 			return response()->json(['forbidden' => 'You dont have permission to add quotes here'], 403);
 		}
 
-		$quote = new Quote;
-		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
-		$quote->movie_id = $movie->id;
-		$quote->user_id = auth()->user()->getAuthIdentifier();
+		$quote = Quote::create([
+			'text' => [
+				'en' => $request->text_en,
+				'ka' => $request->text_ka,
+			],
+			'movie_id' => $movie->id,
+			'user_id'  => auth()->user()->getAuthIdentifier(),
+			'image'    => $request->image,
+		]);
 		if ($request->hasFile('image'))
 		{
 			File::delete(public_path('images/') . $quote->image);
@@ -34,8 +39,8 @@ class QuoteController extends Controller
 			$filename = $file->getClientOriginalName();
 			$file->move('images/', $filename);
 			$quote->image = ('images/' . $filename);
+			$quote->save();
 		}
-		$quote->save();
 
 		return response()->json(['message' => 'Movie created successfully']);
 	}
@@ -108,11 +113,12 @@ class QuoteController extends Controller
 
 	public function storeWriteQuote(StoreWriteQuoteRequest $request): JsonResponse
 	{
-		$quote = new Quote();
-		$quote->text = ['en' => $request->text_en, 'ka' => $request->text_ka];
-		$quote->image = $request->image;
-		$quote->movie_id = $request->movieId;
-		$quote->user_id = Auth::id();
+		$quote = Quote::create([
+			'text'     => ['en' => $request->text_en, 'ka' => $request->text_ka],
+			'image'    => $request->image,
+			'movie_id' => $request->movieId,
+			'user_id'  => Auth::id(),
+		]);
 		if ($request->hasFile('image'))
 		{
 			File::delete(public_path('images/') . $quote->image);

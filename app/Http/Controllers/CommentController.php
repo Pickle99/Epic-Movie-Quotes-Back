@@ -10,34 +10,35 @@ use App\Models\Notification;
 use App\Models\Quote;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-	public function store(StoreCommentRequest $request, Quote $quote)
+	public function store(StoreCommentRequest $request, Quote $quote): JsonResponse
 	{
-		$comment = new Comment();
-		$comment->text = $request->text;
-		$comment->user_id = Auth::id();
-		$comment->quote_id = $quote->id;
-		$comment->comment_from = Auth::user()->username;
-		$comment->avatar = Auth::user()->avatar;
-		$comment->save();
+		$comment = Comment::create([
+			'text'         => $request->text,
+			'user_id'      => Auth::id(),
+			'quote_id'     => $quote->id,
+			'comment_from' => Auth::user()->username,
+			'avatar'       => Auth::user()->avatar,
+		]);
 
 		$quoteOwner = User::where('id', $quote->user_id)->first();
 
 		if ($quote->user_id !== auth()->user()->id)
 		{
-			$notification = new Notification;
-			$notification->action = 'comment';
-			$notification->action_from = Auth::user()->username;
-			$notification->avatar = Auth::user()->avatar;
-			$notification->user_id = $quoteOwner->id;
-			$notification->quote_id = $quote->id;
-			$notification->comment_id = $comment->id;
-			$notification->created_date = Carbon::now();
-			$notification->notification_state = 'New';
-			$notification->save();
+			$notification = Notification::create([
+				'action'             => 'comment',
+				'action_from'        => Auth::user()->username,
+				'avatar'             => Auth::user()->avatar,
+				'user_id'            => $quoteOwner->id,
+				'quote_id'           => $quote->id,
+				'comment_id'         => $comment->id,
+				'created_date'       => Carbon::now(),
+				'notification_state' => 'New',
+			]);
 
 			broadcast(new ShowNotification($notification));
 		}
