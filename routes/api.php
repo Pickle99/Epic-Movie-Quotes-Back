@@ -64,9 +64,9 @@ Route::middleware('auth:api')->group(function () {
 		Route::get('quote/{quote}', 'showQuote')->name('quote.create');
 		Route::post('quote/{quote}/update', 'update')->name('quote.update');
 		Route::delete('quote/{quote}/delete', 'destroy')->name('quote.destroy');
-		Route::get('feed', 'showPaginatedQuotes')->name('all.quotes_show');
-		Route::get('all-quotes', 'showAllQuotes')->name('quotes.all_show');
-		Route::post('add-quote', 'storeWriteQuote')->name('write.quote_store');
+		Route::post('feed', 'showPaginatedQuotes')->name('feed.show');
+		Route::get('all-quotes', 'showAllQuotes')->name('all_quotes.show');
+		Route::post('add-quote', 'storeWriteQuote')->name('write_quote.store');
 	});
 
 	Route::controller(NotificationController::class)->group(function () {
