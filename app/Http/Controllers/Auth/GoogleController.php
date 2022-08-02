@@ -49,7 +49,7 @@ class GoogleController extends Controller
 				'provider_id'       => $socialUser->id,
 			]);
 		}
-		$token = auth('api')->login($user);
+		$token = auth()->login($user);
 		return $this->respondWithToken($token);
 	}
 

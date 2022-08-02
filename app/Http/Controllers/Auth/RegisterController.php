@@ -41,7 +41,7 @@ class RegisterController extends Controller
 			{
 				$user->email_verified_at = Carbon::now();
 				$user->save();
-				$token = auth('api')->login($user);
+				$token = auth()->login($user);
 				return $this->respondWithToken($token);
 			}
 			return response()->json(['error'=>'User already verified'], 404);
