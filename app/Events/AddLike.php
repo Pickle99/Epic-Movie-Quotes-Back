@@ -12,17 +12,13 @@ class AddLike implements ShouldBroadcast
 {
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
-	public $like;
-
 	/**
 	 * Create a new event instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($like)
+	public function __construct(public $like)
 	{
-		$this->like = $like;
-
 		$this->dontBroadcastToCurrentUser();
 	}
 

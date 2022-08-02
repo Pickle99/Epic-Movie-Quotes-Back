@@ -12,17 +12,13 @@ class RemoveLike implements ShouldBroadcast
 {
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
-	public $quote;
-
 	/**
 	 * Create a new event instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($quote)
+	public function __construct(public $quote)
 	{
-		$this->quote = $quote;
-
 		$this->dontBroadcastToCurrentUser();
 	}
 
