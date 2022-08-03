@@ -22,6 +22,7 @@
             <directory>./app/Providers</directory>
             <file>./app/Http/Controllers/Controller.php</file>
             <file>./app/Console/Kernel.php</file>
+            <file>./app/Http/Controllers/Auth/GoogleController.php</file>
             <file>./app/Http/Kernel.php</file>
         </exclude>
     </coverage>
