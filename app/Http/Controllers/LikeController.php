@@ -30,7 +30,6 @@ class LikeController extends Controller
 		]);
 
 		$quoteOwner = User::where('id', $quote->user_id)->first();
-
 		if ($quote->user_id !== auth()->user()->id)
 		{
 			$notification = Notification::create([
@@ -39,11 +38,10 @@ class LikeController extends Controller
 				'avatar'             => Auth::user()->avatar,
 				'user_id'            => $quoteOwner->id,
 				'quote_id'           => $quote->id,
-				'comment_id'         => $like->id,
+				'like_id'            => $like->id,
 				'created_date'       => now(),
 				'notification_state' => 'New',
 			]);
-
 			broadcast(new ShowNotification($notification));
 		}
 		broadcast(new AddLike($like));
