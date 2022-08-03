@@ -23,6 +23,7 @@ class LikeController extends Controller
 			broadcast(new RemoveLike($quote));
 			return response()->json('Deleted');
 		}
+
 		$like = Like::create([
 			'user_id'  => Auth::id(),
 			'quote_id' => $quote->id,

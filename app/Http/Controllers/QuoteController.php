@@ -87,17 +87,17 @@ class QuoteController extends Controller
 			$quotes = Quote::with(['user', 'movie'])
 				->whereHas('movie', function ($q) use ($search) {
 					$q->where(DB::raw('lower(title)'), 'like', '%' . strtolower($search) . '%');
-				})->orderByDesc('created_at')
+				})->latest('created_at')
 				->paginate(3);
 			return QuoteResource::collection($quotes);
 		}
-		$quotes = Quote::with(['user', 'movie'])->orderByDesc('created_at')->paginate(3);
+		$quotes = Quote::with(['user', 'movie'])->latest('created_at')->paginate(3);
 		return QuoteResource::collection($quotes);
 	}
 
 	public function showAllQuotes()
 	{
-		$quotes = Quote::with(['user', 'movie'])->orderByDesc('created_at')->get();
+		$quotes = Quote::with(['user', 'movie'])->latest('created_at')->get();
 		return QuoteResource::collection($quotes);
 	}
 
