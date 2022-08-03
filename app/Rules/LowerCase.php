@@ -39,6 +39,6 @@ class LowerCase implements Rule
 	 */
 	public function message()
 	{
-		return 'This field must be lower case';
+		return response()->json('This field must be lower case');
 	}
 }

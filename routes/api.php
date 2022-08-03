@@ -40,8 +40,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth:api')->group(function () {
 	Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-	Route::get('user/{user}', [UserController::class, 'show']);
-	Route::post('user/{user}/update', [UserController::class, 'update']);
+	Route::get('user/{user}', [UserController::class, 'show'])->name('user.show');
+	Route::post('user/{user}/update', [UserController::class, 'update'])->name('user.update');
 
 	Route::post('quote/{quote}/add-comment', [CommentController::class, 'store'])->name('comment.store');
 
