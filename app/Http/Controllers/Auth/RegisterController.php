@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Mail\VerifyEmail;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +36,7 @@ class RegisterController extends Controller
 		$user = User::where('token', $token)->firstOrFail();
 		if (!$user->email_verified_at)
 		{
-			$user->email_verified_at = Carbon::now();
+			$user->email_verified_at = now();
 			$user->save();
 			$token = auth()->login($user);
 			return $this->respondWithToken($token);

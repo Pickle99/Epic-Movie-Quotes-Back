@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -41,7 +40,7 @@ class GoogleController extends Controller
 				'username'          => strtolower(str_replace(' ', '', $socialUser->name)),
 				'email'             => $socialUser->email,
 				'password'          => Hash::make($socialUser->getName() . '@' . $socialUser->getId()),
-				'email_verified_at' => Carbon::now(),
+				'email_verified_at' => now(),
 				'avatar'            => $path,
 				'provider'          => 'google',
 				'provider_id'       => $socialUser->id,

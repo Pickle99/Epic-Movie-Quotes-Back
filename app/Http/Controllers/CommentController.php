@@ -9,7 +9,6 @@ use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\Quote;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +35,7 @@ class CommentController extends Controller
 				'user_id'            => $quoteOwner->id,
 				'quote_id'           => $quote->id,
 				'comment_id'         => $comment->id,
-				'created_date'       => Carbon::now(),
+				'created_date'       => now(),
 				'notification_state' => 'New',
 			]);
 
