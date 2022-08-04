@@ -127,10 +127,4 @@ class MovieController extends Controller
 		$movie->delete();
 		return response()->json(['message' => 'Movie successfully deleted']);
 	}
-
-	public function showAllMovies()
-	{
-		$movie = Movie::all();
-		return MovieResource::collection($movie);
-	}
 }

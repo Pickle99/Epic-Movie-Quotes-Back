@@ -242,10 +242,4 @@ class MovieTest extends TestCase
 		$this->delete(route('movie.destroy', $movie->id), [
 		])->assertStatus(403);
 	}
-
-	public function test_all_movies_are_accessbile()
-	{
-		$this->withoutMiddleware(Authenticate::class);
-		$this->get(route('movies'))->assertSuccessful();
-	}
 }
