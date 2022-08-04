@@ -95,7 +95,7 @@ class QuoteTest extends TestCase
 		$quote = Quote::factory()->create([
 			'user_id' => $user->id,
 		]);
-		$this->get(route('quote.create', $quote->id))->assertSuccessful();
+		$this->get(route('quote.get', $quote->id))->assertSuccessful();
 	}
 
 	public function test_user_can_not_update_other_peoples_quotes()

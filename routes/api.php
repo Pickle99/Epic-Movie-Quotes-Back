@@ -56,14 +56,14 @@ Route::middleware('auth:api')->group(function () {
 		Route::get('movie-description/{movie}', 'showMovieDescription')->name('movie.description');
 		Route::get('movie/{movie}', 'showMovie')->name('show.movie');
 		Route::post('movie/{movie}/update', 'update')->name('movie.update');
-		Route::delete('movie/{movie}/delete', 'destroy')->name('movie.destroy');
+		Route::delete('movie/{movie}', 'destroy')->name('movie.destroy');
 	});
 
 	Route::controller(QuoteController::class)->group(function () {
 		Route::post('movie/{movie}/quote', 'store')->name('quote.store');
-		Route::get('quote/{quote}', 'showQuote')->name('quote.create');
+		Route::get('quote/{quote}', 'showQuote')->name('quote.get');
 		Route::post('quote/{quote}/update', 'update')->name('quote.update');
-		Route::delete('quote/{quote}/delete', 'destroy')->name('quote.destroy');
+		Route::delete('quote/{quote}', 'destroy')->name('quote.destroy');
 		Route::post('feed', 'showPaginatedQuotes')->name('feed.show');
 		Route::get('all-quotes', 'showAllQuotes')->name('all_quotes.show');
 		Route::post('add-quote', 'storeWriteQuote')->name('write_quote.store');
