@@ -105,7 +105,7 @@ class QuoteController extends Controller
 		return QuoteResource::collection($quotes);
 	}
 
-	public function showAllQuotes()
+	public function index()
 	{
 		$quotes = Quote::with(['user', 'movie'])->latest('created_at')->get();
 		return QuoteResource::collection($quotes);

@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\File;
 
 class MovieController extends Controller
 {
+	public function showMovie(Movie $movie)
+	{
+		return new MovieResource($movie);
+	}
+
 	public function store(StoreMovieRequest $request)
 	{
 		$movie = Movie::create([
@@ -65,11 +70,6 @@ class MovieController extends Controller
 	public function showMovieDescription(Movie $movie)
 	{
 		$movie = Movie::where('id', $movie->id)->with('quotes')->first();
-		return new MovieResource($movie);
-	}
-
-	public function showMovie(Movie $movie)
-	{
 		return new MovieResource($movie);
 	}
 

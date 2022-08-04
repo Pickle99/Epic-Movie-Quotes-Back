@@ -51,7 +51,6 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::controller(MovieController::class)->group(function () {
 		Route::post('movies', 'store')->name('movies.store');
-		Route::get('all-movies', 'showAllMovies')->name('movies.show_all');
 		Route::get('user-movies', 'showUserMovies')->name('user.movies');
 		Route::get('movie-description/{movie}', 'showMovieDescription')->name('movie.description');
 		Route::get('movie/{movie}', 'showMovie')->name('show.movie');
@@ -65,7 +64,7 @@ Route::middleware('auth:api')->group(function () {
 		Route::post('quote/{quote}/update', 'update')->name('quote.update');
 		Route::delete('quote/{quote}', 'destroy')->name('quote.destroy');
 		Route::post('feed', 'showPaginatedQuotes')->name('feed.show');
-		Route::get('all-quotes', 'showAllQuotes')->name('quotes.show_all');
+		Route::get('quotes', 'index')->name('quotes');
 		Route::post('add-quote', 'storeWriteQuote')->name('quote.store_write');
 	});
 

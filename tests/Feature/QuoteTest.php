@@ -227,7 +227,7 @@ class QuoteTest extends TestCase
 			'user_id'  => $user->id,
 			'movie_id' => $movie->id,
 		]);
-		$this->get(route('quotes.show_all'))->assertSuccessful();
+		$this->get(route('quotes'))->assertSuccessful();
 	}
 
 	public function test_user_can_delete_his_own_quote()
