@@ -21,7 +21,7 @@ class Like extends Model
 		return $this->belongsTo(User::class);
 	}
 
-	public function notificiation()
+	public function notification()
 	{
 		return $this->hasOne(Notification::class);
 	}

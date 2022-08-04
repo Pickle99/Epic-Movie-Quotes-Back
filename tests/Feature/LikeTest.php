@@ -3,9 +3,12 @@
 namespace Tests\Feature;
 
 use App\Models\Like;
+use App\Models\Notification;
 use App\Models\Quote;
 use App\Models\User;
 use Database\Seeders\GenresSeeder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -92,5 +95,29 @@ class LikeTest extends TestCase
 		]);
 
 		$this->get(route('like.store', ['quote' => $quote->id]))->assertSuccessful();
+	}
+
+	public function test_like_belongs_to_quote_class()
+	{
+		$quote = Quote::factory()->create();
+		$like = Like::factory()->create(['quote_id' => $quote->id]);
+
+		$this->assertInstanceOf(BelongsTo::class, $like->quote());
+	}
+
+	public function test_like_belongs_to_user_class()
+	{
+		$user = User::factory()->create();
+		$like = Like::factory()->create(['user_id' => $user->id]);
+
+		$this->assertInstanceOf(BelongsTo::class, $like->user());
+	}
+
+	public function test_like_belongs_to_notification_class()
+	{
+		Notification::factory()->create();
+		$like = Like::factory()->create();
+
+		$this->assertInstanceOf(hasOne::class, $like->notification());
 	}
 }

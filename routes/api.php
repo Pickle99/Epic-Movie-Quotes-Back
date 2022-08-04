@@ -47,7 +47,7 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::get('quote/{quote}/add-like', [LikeController::class, 'store'])->name('like.store');
 
-	Route::get('genres', [GenreController::class, 'showGenres'])->name('genres.get');
+	Route::get('genres', [GenreController::class, 'showGenres'])->name('genres');
 
 	Route::controller(MovieController::class)->group(function () {
 		Route::post('movies', 'store')->name('movies.store');
@@ -69,8 +69,8 @@ Route::middleware('auth:api')->group(function () {
 	});
 
 	Route::controller(NotificationController::class)->group(function () {
-		Route::get('notifications/mark-all-as-read', 'markAsAllRead')->name('notification_all_read');
-		Route::post('notification/{notification}/mark-single-as-read', 'markSingleAsRead')->name('notification_single_read');
+		Route::get('notifications/mark-all-as-read', 'markAsAllRead')->name('notifications_all_read');
+		Route::post('notification/{notification}/mark-single-as-read', 'markSingleAsRead')->name('notifications_single_read');
 		Route::get('notifications', 'show')->name('notifications.show');
 	});
 });
