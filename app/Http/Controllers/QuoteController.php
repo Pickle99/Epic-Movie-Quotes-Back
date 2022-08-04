@@ -75,23 +75,33 @@ class QuoteController extends Controller
 		$str = $request->search;
 		if (str_starts_with($str, 'q'))
 		{
-			$search = substr($str, 1);
-			$quotes = Quote::with(['user', 'movie'])
-				->where(DB::raw('lower(text)'), 'like', '%' . strtolower($search) . '%')
-				->paginate(3);
-			return QuoteResource::collection($quotes);
+			return $this->searchByQuote($str);
 		}
 		if (str_starts_with($str, 'm'))
 		{
-			$search = substr($str, 1);
-			$quotes = Quote::with(['user', 'movie'])
-				->whereHas('movie', function ($q) use ($search) {
-					$q->where(DB::raw('lower(title)'), 'like', '%' . strtolower($search) . '%');
-				})->latest('created_at')
-				->paginate(3);
-			return QuoteResource::collection($quotes);
+			return $this->searchByMovie($str);
 		}
-		$quotes = Quote::with(['user', 'movie'])->latest('created_at')->paginate(3);
+		$quotes = Quote::with(['user', 'movie'])->latest('created_at')->paginate(1);
+		return QuoteResource::collection($quotes);
+	}
+
+	public function searchByQuote(string $str)
+	{
+		$search = substr($str, 1);
+		$quotes = Quote::with(['user', 'movie'])
+			->where(DB::raw('lower(text)'), 'like', '%' . strtolower($search) . '%')
+			->paginate(1);
+		return QuoteResource::collection($quotes);
+	}
+
+	public function searchByMovie(string $str)
+	{
+		$search = substr($str, 1);
+		$quotes = Quote::with(['user', 'movie'])
+			->whereHas('movie', function ($q) use ($search) {
+				$q->where(DB::raw('lower(title)'), 'like', '%' . strtolower($search) . '%');
+			})->latest('created_at')
+			->paginate(1);
 		return QuoteResource::collection($quotes);
 	}
 
