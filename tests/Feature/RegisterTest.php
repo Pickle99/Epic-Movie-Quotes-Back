@@ -41,7 +41,7 @@ class RegisterTest extends TestCase
 			'email_verified_at' => null,
 		]);
 
-		$response = $this->post(route('user.verify', ['token' => $user->token]));
+		$response = $this->post(route('user_verify', ['token' => $user->token]));
 
 		$response->assertJsonStructure([
 			'access_token', 'token_type', 'expires_in', 'user',
@@ -52,7 +52,7 @@ class RegisterTest extends TestCase
 	{
 		$user = User::factory()->create();
 
-		$response = $this->post(route('user.verify', ['token' => $user->token]));
+		$response = $this->post(route('user_verify', ['token' => $user->token]));
 
 		$response->assertStatus(404);
 	}

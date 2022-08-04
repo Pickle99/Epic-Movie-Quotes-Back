@@ -227,7 +227,7 @@ class QuoteTest extends TestCase
 			'user_id'  => $user->id,
 			'movie_id' => $movie->id,
 		]);
-		$this->get(route('all_quotes.show'))->assertSuccessful();
+		$this->get(route('quotes.show_all'))->assertSuccessful();
 	}
 
 	public function test_user_can_delete_his_own_quote()
@@ -313,7 +313,7 @@ class QuoteTest extends TestCase
 			'user_id' => $user->id,
 		]);
 
-		$this->post(route('write_quote.store'), [
+		$this->post(route('quote.store_write'), [
 			'text_en'              => 'asdf',
 			'text_ka'              => 'აბგს',
 			'movieId'              => $movie->id,

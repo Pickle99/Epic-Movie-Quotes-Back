@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
 	Route::post('register', [RegisterController::class, 'createUser'])->name('register');
-	Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user.verify');
+	Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user_verify');
 
 	Route::post('login', [AuthController::class, 'login'])->name('login');
 
@@ -51,7 +51,7 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::controller(MovieController::class)->group(function () {
 		Route::post('movies', 'store')->name('movies.store');
-		Route::get('all-movies', 'showAllMovies')->name('movies.all_show');
+		Route::get('all-movies', 'showAllMovies')->name('movies.show_all');
 		Route::get('user-movies', 'showUserMovies')->name('user.movies');
 		Route::get('movie-description/{movie}', 'showMovieDescription')->name('movie.description');
 		Route::get('movie/{movie}', 'showMovie')->name('show.movie');
@@ -65,13 +65,13 @@ Route::middleware('auth:api')->group(function () {
 		Route::post('quote/{quote}/update', 'update')->name('quote.update');
 		Route::delete('quote/{quote}', 'destroy')->name('quote.destroy');
 		Route::post('feed', 'showPaginatedQuotes')->name('feed.show');
-		Route::get('all-quotes', 'showAllQuotes')->name('all_quotes.show');
-		Route::post('add-quote', 'storeWriteQuote')->name('write_quote.store');
+		Route::get('all-quotes', 'showAllQuotes')->name('quotes.show_all');
+		Route::post('add-quote', 'storeWriteQuote')->name('quote.store_write');
 	});
 
 	Route::controller(NotificationController::class)->group(function () {
-		Route::get('notifications/mark-all-as-read', 'markAsAllRead')->name('notification.all-read');
-		Route::post('notification/{notification}/mark-single-as-read', 'markSingleAsRead')->name('notification.single-read');
+		Route::get('notifications/mark-all-as-read', 'markAsAllRead')->name('notification_all_read');
+		Route::post('notification/{notification}/mark-single-as-read', 'markSingleAsRead')->name('notification_single_read');
 		Route::get('notifications', 'show')->name('notifications.show');
 	});
 });

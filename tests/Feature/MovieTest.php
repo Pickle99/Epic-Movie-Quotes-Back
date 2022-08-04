@@ -246,6 +246,6 @@ class MovieTest extends TestCase
 	public function test_all_movies_are_accessbile()
 	{
 		$this->withoutMiddleware(Authenticate::class);
-		$this->get(route('movies.all_show'))->assertSuccessful();
+		$this->get(route('movies.show_all'))->assertSuccessful();
 	}
 }
