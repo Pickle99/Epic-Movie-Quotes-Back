@@ -9,6 +9,7 @@ use App\Http\Resources\QuoteResource;
 use App\Models\Movie;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -45,7 +46,7 @@ class QuoteController extends Controller
 		return response()->json(['message' => 'Movie created successfully']);
 	}
 
-	public function showQuote(Quote $quote)
+	public function showQuote(Quote $quote): QuoteResource
 	{
 		$quoteWithUser = Quote::where('id', $quote->id)->with('user')->first();
 		return new QuoteResource($quoteWithUser);
@@ -70,7 +71,7 @@ class QuoteController extends Controller
 		return response()->json(['message'=>'Quote updated successfully']);
 	}
 
-	public function showPaginatedQuotes(Request $request)
+	public function showPaginatedQuotes(Request $request): ResourceCollection
 	{
 		$str = $request->search;
 		if (str_starts_with($str, 'q'))
@@ -85,7 +86,7 @@ class QuoteController extends Controller
 		return QuoteResource::collection($quotes);
 	}
 
-	public function searchByQuote(string $str)
+	public function searchByQuote(string $str): ResourceCollection
 	{
 		$search = substr($str, 1);
 		$quotes = Quote::with(['user', 'movie'])
@@ -94,7 +95,7 @@ class QuoteController extends Controller
 		return QuoteResource::collection($quotes);
 	}
 
-	public function searchByMovie(string $str)
+	public function searchByMovie(string $str): ResourceCollection
 	{
 		$search = substr($str, 1);
 		$quotes = Quote::with(['user', 'movie'])
@@ -105,7 +106,7 @@ class QuoteController extends Controller
 		return QuoteResource::collection($quotes);
 	}
 
-	public function index()
+	public function index(): ResourceCollection
 	{
 		$quotes = Quote::with(['user', 'movie'])->latest('created_at')->get();
 		return QuoteResource::collection($quotes);

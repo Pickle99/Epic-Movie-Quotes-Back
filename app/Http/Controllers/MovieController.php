@@ -9,16 +9,17 @@ use App\Models\Genre;
 use App\Models\GenreMovie;
 use App\Models\Movie;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\File;
 
 class MovieController extends Controller
 {
-	public function showMovie(Movie $movie)
+	public function showMovie(Movie $movie): MovieResource
 	{
 		return new MovieResource($movie);
 	}
 
-	public function store(StoreMovieRequest $request)
+	public function store(StoreMovieRequest $request): MovieResource
 	{
 		$movie = Movie::create([
 			'title' => [
@@ -60,14 +61,14 @@ class MovieController extends Controller
 		return new MovieResource($movie);
 	}
 
-	public function showUserMovies()
+	public function showUserMovies(): ResourceCollection
 	{
 		$userId = auth()->user()->getAuthIdentifier();
 		$userMovies = Movie::where('user_id', $userId)->with('quotes')->get();
 		return MovieResource::collection($userMovies);
 	}
 
-	public function showMovieDescription(Movie $movie)
+	public function showMovieDescription(Movie $movie): MovieResource
 	{
 		$movie = Movie::where('id', $movie->id)->with('quotes')->first();
 		return new MovieResource($movie);

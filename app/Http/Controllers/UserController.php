@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
-	public function show(User $user)
+	public function show(User $user): UserResource
 	{
 		return new UserResource($user);
 	}
 
-	public function update(User $user, UpdateUserRequest $request)
+	public function update(User $user, UpdateUserRequest $request): UserResource
 	{
 		$user->update([
 			'username' => $request->username ?? $user->username,
