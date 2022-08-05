@@ -7,13 +7,13 @@ use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
 use Database\Seeders\GenresSeeder;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class MovieTest extends TestCase
 {
-	use DatabaseMigrations;
+	use RefreshDatabase;
 
 	/**
 	 * A basic feature test example.

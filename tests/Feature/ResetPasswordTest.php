@@ -5,12 +5,12 @@ namespace Tests\Feature;
 use App\Models\PasswordReset;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
 {
-	use DatabaseMigrations;
+	use RefreshDatabase;
 
 	/**
 	 * A basic feature test example.

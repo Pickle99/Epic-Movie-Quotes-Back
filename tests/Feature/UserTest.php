@@ -4,13 +4,13 @@ namespace Tests\Feature;
 
 use App\Http\Middleware\Authenticate;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-	use DatabaseMigrations;
+	use RefreshDatabase;
 
 	/**
 	 * A basic feature test example.

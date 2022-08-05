@@ -8,12 +8,12 @@ use App\Models\Notification;
 use App\Models\Quote;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class NotificationTest extends TestCase
 {
-	use DatabaseMigrations;
+	use RefreshDatabase;
 
 	/*
 	 * A basic feature test example.

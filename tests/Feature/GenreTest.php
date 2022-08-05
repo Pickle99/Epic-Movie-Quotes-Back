@@ -6,12 +6,12 @@ use App\Http\Middleware\Authenticate;
 use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class GenreTest extends TestCase
 {
-	use DatabaseMigrations;
+	use RefreshDatabase;
 
 	/**
 	 * A basic feature test example.
