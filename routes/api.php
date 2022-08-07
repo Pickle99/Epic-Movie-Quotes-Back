@@ -25,10 +25,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('guest')->group(function () {
+	Route::post('login', [AuthController::class, 'login'])->name('login');
+
 	Route::post('register', [RegisterController::class, 'createUser'])->name('register');
 	Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user_verify');
-
-	Route::post('login', [AuthController::class, 'login'])->name('login');
 
 	Route::post('forgot-password', [ResetPasswordController::class, 'resetPassword'])->name('password.email');
 	Route::post('reset-password/{token}', [ResetPasswordController::class, 'updatePassword'])->name('password.update');

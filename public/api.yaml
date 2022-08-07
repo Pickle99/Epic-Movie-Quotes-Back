@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: Coronatime API
+  description: Here goes description
+  version: 0.1.9
+
+servers:
+  - url: http://localhost:8000/api
+    description: local server
+  - url: http://producation.app/api
+    description: production server
+
+paths:
+  /login:
+    post:
+      summary: User login.
+      responses:
+        '200':
+          description: Successfully logged in.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+             type: object
+             properties:
+               user:
+                 type: string
+               password:
+                 type: string
+               remember_token:
+                 type: boolean
+                 default: false
+  /register:
+    post:
+      summary: User register.
+      responses:
+        '200':
+          description: User successfully registered.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+  /successfully-verified/{token}:
+    post:
+      summary: User email verification.
+      responses:
+        '200':
+          description: User successfully verified.
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+          description: The user token.
+  /forgot-passsword:
+    post:
+      summary: Send mail to user who forgot his password.
+      responses:
+        '200':
+          description: Forgot password email sent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+  /reset-password/{token}:
+    post:
+      summary: Reset user's password.
+      responses:
+        '200':
+          description: User password updated successfully.
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+          description: The user token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                token:
+                  type: string
+
+
+
+
+
