@@ -17,6 +17,20 @@ paths:
       responses:
         '200':
           description: Successfully logged in.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                  expires_in:
+                    type: integer
+                    default: 60
+                  user:
+                    type: object
       requestBody:
         required: true
         content:
@@ -58,6 +72,20 @@ paths:
       responses:
         '200':
           description: User successfully verified.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                  expires_in:
+                    type: integer
+                    default: 60
+                  user:
+                    type: object
       parameters:
         - in: path
           name: token
@@ -106,7 +134,39 @@ paths:
                   type: string
                 token:
                   type: string
-
+  /auth/google/redirect:
+    get:
+      summary: Get google redirect url.
+      responses:
+        '200':
+          description: Google url get successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+  /auth/google/callback:
+    get:
+      summary: Send callback to server to authorize user with google and get JWT token.
+      responses:
+        '200':
+          description: User authorized with google successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                  expires_in:
+                    type: integer
+                    default: 60
+                  user:
+                    type: object
 
 
 
