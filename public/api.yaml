@@ -168,6 +168,167 @@ paths:
                   user:
                     type: object
 
+  /logout:
+    post:
+      summary: Log out user from server-side.
+      responses:
+        '200':
+          description: User logged out successfully.
 
+  /user/{user}:
+    get:
+      summary: Show user by id.
+      responses:
+        '200':
+          description: User get successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 properties:
+                  id:
+                    type: integer
+                    default: 1
+                  username:
+                    type: string
+                    default: 'jamesbond'
+                  email:
+                    type: string
+                    default: 'bingo@gmail.com'
+                  avatar:
+                    type: string
+                    default: 'file911.png'
+                  provider:
+                    type: string
+                    default: null
+                  created_at:
+                    type: string
+                    default: 2022-08-04 18:22:38
+      parameters:
+        - in: path
+          name: user
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested User ID.
+  /user/{user}/update:
+    post:
+      summary: Update user information.
+      responses:
+        '200':
+          description: User get successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    username:
+                      type: string
+                      default: 'jamesbond'
+                    email:
+                      type: string
+                      default: 'bingo@gmail.com'
+                    avatar:
+                      type: string
+                      default: 'file911.png'
+                    provider:
+                      type: string
+                      default: null
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+      parameters:
+        - in: path
+          name: user
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested User ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                avatar:
+                  type: string
+  /quote/{quote}:
+    post:
+      summary: Add comment to quote.
+      responses:
+        '200':
+          description: Comment added successfully.
+      parameters:
+        - in: path
+          name: quote
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Quote ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+    get:
+      summary: Add like to quote, start broadcasting.
+      responses:
+        '200':
+          description: Like added successfully.
+      parameters:
+        - in: path
+          name: quote
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Quote ID.
+  /genres:
+    get:
+      summary: Get all genres.
+      responses:
+        '200':
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    name:
+                      type: string
+                      default: 'Comedy'
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    updated_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
 
 
