@@ -43,9 +43,9 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('user/{user}', [UserController::class, 'show'])->name('user.show');
 	Route::post('user/{user}/update', [UserController::class, 'update'])->name('user.update');
 
-	Route::post('quote/{quote}', [CommentController::class, 'store'])->name('comment.store');
+	Route::post('quote/{quote}/add-comment', [CommentController::class, 'store'])->name('comment.store');
 
-	Route::get('quote/{quote}', [LikeController::class, 'store'])->name('like.store');
+	Route::get('quote/{quote}/add-like', [LikeController::class, 'store'])->name('like.store');
 
 	Route::get('genres', [GenreController::class, 'showGenres'])->name('genres');
 
