@@ -266,9 +266,11 @@ paths:
                   type: string
                 password:
                   type: string
+                  required: false
                 avatar:
                   type: string
-  /quote/{quote}:
+                  required: false
+  /quote/{quote}/add-comment:
     post:
       summary: Add comment to quote.
       responses:
@@ -292,6 +294,7 @@ paths:
               properties:
                 text:
                   type: string
+  /quote/{quote}/add-like:
     get:
       summary: Add like to quote, start broadcasting.
       responses:
@@ -332,3 +335,900 @@ paths:
                       default: 2022-08-04 18:22:38
 
 
+  /movies:
+    post:
+      summary: Add Movie.
+      responses:
+        '200':
+          description: Movie created successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    title:
+                       default: {
+                                  en: Pirates,
+                                  ka: მეკობრეები,
+                       }
+                    description:
+                      default: {
+                        en: Movie about pirates,
+                        ka: ფილმი მეკობრეებზე,
+                      }
+                    director:
+                      default: {
+                        en: Jim Morrison,
+                        ka: ჯიმ მორისონი,
+                      }
+                    user:
+                      default: [ {
+                                  id: 1,
+                                  username: 'jamesbond',
+                                  email: 'bingo@gmail.com',
+                                  avatar: 'file911.png',
+                                  provider: null,
+                                  created_at: 2022-08-04 18:22:38,
+                      }]
+                    genres:
+                      default: [{
+                                  id: 1,
+                                  name: Comedy,
+                                  created_at: 2022-08-04 18:22:38,
+                                  updated_at: 2022-08-04 18:22:38
+                      },
+                        {
+                          id: 2,
+                          name: Drama,
+                          created_at: 2022-08-04 18:22:38,
+                          updated_at: 2022-08-04 18:22:38
+                        }]
+                    year:
+                      type: integer
+                      default: 2022
+                    budget:
+                      type: integer
+                      default: 5000000
+                    image:
+                      type: string
+                      default: image.png
+                    user_id:
+                      type: integer
+                      default: 1
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    updated_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title_en:
+                  type: string
+                  default: Horror movie
+                title_ka:
+                  type: string
+                  default: საშიში ფილმი
+                description_en:
+                  type: string
+                  default: Awesome
+                description_ka:
+                  type: string
+                  default: მაგარია
+                director_en:
+                  type: string
+                  default: Jim morrison
+                director_ka:
+                  type: string
+                  default: ჯიმ მორისონი
+                genres:
+                  type: array
+                  default: []
+                year:
+                  type: integer
+                  default: 2020
+                budget:
+                  type: integer
+                  default: 400000
+                image:
+                  type: string
+                  default: image.png
+  /user-movies:
+    get:
+      summary: Get authenticated user movies.
+      responses:
+        '200':
+          description: Current user Movies get successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    title:
+                      default: {
+                        en: Pirates,
+                        ka: მეკობრეები,
+                      }
+                    description:
+                      default: {
+                        en: Movie about pirates,
+                        ka: ფილმი მეკობრეებზე,
+                      }
+                    director:
+                      default: {
+                        en: Jim Morrison,
+                        ka: ჯიმ მორისონი,
+                      }
+                    quotes:
+                      default: [ {
+                        id: 1,
+                        text: {
+                                en: "Some quote",
+                                ka: "რომელიღაც ციტატა"
+                        },
+                        likes: [{
+                                  id: 1,
+                                  user_id: 1,
+                                  quote_id: 1,
+                                  created_at: 2022-08-04 18:22:38,
+                                  updated_at: 2022-08-04 18:22:38,
+                        }],
+                        comments: [{
+                           id: 1,
+                           text: "Awesome",
+                           comment_from: "mangola201",
+                           avatar: "imageofmangole201.png",
+                           user_id: 2,
+                           quote_id: 3,
+                           created_at: 2022-08-04 18:22:38,
+                           updated_at: 2022-08-04 18:22:38,
+                        }],
+                        image: "file10.png",
+                        movie_id: 2,
+                        user_id: 3,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38,
+                      }]
+                    genres:
+                      default: [{
+                        id: 1,
+                        name: Drama,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38
+                      },
+                        {
+                          id: 2,
+                          name: Horror,
+                          created_at: 2022-08-04 18:22:38,
+                          updated_at: 2022-08-04 18:22:38
+                        }]
+                    year:
+                      type: integer
+                      default: 2022
+                    budget:
+                      type: integer
+                      default: 5000000
+                    image:
+                      type: string
+                      default: image.png
+                    user_id:
+                      type: integer
+                      default: 3
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    updated_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+  /movie-description/{movie}:
+    get:
+      summary: Get Requested movie description with quotes.
+      responses:
+        '200':
+          description: Movie description get is successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    title:
+                      default: {
+                        en: Pirates,
+                        ka: მეკობრეები,
+                      }
+                    description:
+                      default: {
+                        en: Movie about pirates,
+                        ka: ფილმი მეკობრეებზე,
+                      }
+                    director:
+                      default: {
+                        en: Jim Morrison,
+                        ka: ჯიმ მორისონი,
+                      }
+                    quotes:
+                      default: [ {
+                        id: 1,
+                        text: {
+                          en: "Some quote",
+                          ka: "რომელიღაც ციტატა"
+                        },
+                        likes: [{
+                          id: 1,
+                          user_id: 1,
+                          quote_id: 1,
+                          created_at: 2022-08-04 18:22:38,
+                          updated_at: 2022-08-04 18:22:38,
+                        }],
+                        comments: [{
+                          id: 1,
+                          text: "Awesome",
+                          comment_from: "mangola201",
+                          avatar: "imageofmangole201.png",
+                          user_id: 2,
+                          quote_id: 3,
+                          created_at: 2022-08-04 18:22:38,
+                          updated_at: 2022-08-04 18:22:38,
+                        }],
+                        image: "file10.png",
+                        movie_id: 2,
+                        user_id: 3,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38,
+                      }]
+                    genres:
+                      default: [{
+                        id: 1,
+                        name: Drama,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38
+                      },
+                        {
+                          id: 2,
+                          name: Horror,
+                          created_at: 2022-08-04 18:22:38,
+                          updated_at: 2022-08-04 18:22:38
+                        }]
+                    year:
+                      type: integer
+                      default: 2022
+                    budget:
+                      type: integer
+                      default: 5000000
+                    image:
+                      type: string
+                      default: image.png
+                    user_id:
+                      type: integer
+                      default: 3
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    updated_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+      parameters:
+        - in: path
+          name: movie
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Movie ID.
+  /movie/{movie}:
+    get:
+      summary: Get Requested Movie.
+      responses:
+        '200':
+          description: Movie get successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    title:
+                      default: {
+                        en: Pirates,
+                        ka: მეკობრეები,
+                      }
+                    description:
+                      default: {
+                        en: Movie about pirates,
+                        ka: ფილმი მეკობრეებზე,
+                      }
+                    director:
+                      default: {
+                        en: Jim Morrison,
+                        ka: ჯიმ მორისონი,
+                      }
+                    genres:
+                      default: [{
+                        id: 1,
+                        name: Drama,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38
+                      },
+                        {
+                          id: 2,
+                          name: Horror,
+                          created_at: 2022-08-04 18:22:38,
+                          updated_at: 2022-08-04 18:22:38
+                        }]
+                    year:
+                      type: integer
+                      default: 2022
+                    budget:
+                      type: integer
+                      default: 5000000
+                    image:
+                      type: string
+                      default: image.png
+                    user_id:
+                      type: integer
+                      default: 3
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    updated_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+      parameters:
+        - in: path
+          name: movie
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Movie ID.
+    delete:
+      summary: Movie delete.
+      responses:
+        '200':
+          description: Movie successfully deleted.
+      parameters:
+        - in: path
+          name: movie
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Movie ID.
+  /movie/{movie}/update:
+    post:
+      summary: Update Movie.
+      responses:
+        '200':
+          description: Movie updated successfully.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title_en:
+                  type: string
+                  default: Horror movie
+                title_ka:
+                  type: string
+                  default: საშიში ფილმი
+                description_en:
+                  type: string
+                  default: Awesome
+                description_ka:
+                  type: string
+                  default: მაგარია
+                director_en:
+                  type: string
+                  default: Jim morrison
+                director_ka:
+                  type: string
+                  default: ჯიმ მორისონი
+                genres:
+                  type: array
+                  default: []
+                year:
+                  type: integer
+                  default: 2020
+                budget:
+                  type: integer
+                  default: 400000
+                image:
+                  type: string
+                  default: image.png
+                  required: false
+  /notifications:
+    get:
+      summary: Show currently authorized user notifications.
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    action:
+                      type: string
+                      default: like
+                    action_from:
+                      type: string
+                      default: miminoshi9235
+                    avatar:
+                      type: string
+                      default: miminoshiImage.png
+                    user_id:
+                      type: integer
+                      default: 1
+                    quote_id:
+                      type: integer
+                      default: 2
+                    like_id:
+                      type: integer
+                      default: 1
+                    comment_id:
+                      type: integer
+                      default: null
+                    created_date:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    created_at:
+                      type: string
+                      default: 5 seconds ago
+                    notification_state:
+                      type: string
+                      default: New
+      parameters:
+        - in: path
+          name: movie
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Movie ID.
+  /notifications/mark-all-as-read:
+    get:
+      summary: Mark all notifications as read.
+      responses:
+        '200':
+          description: Notifications successfully marked as all read.
+  /notification/{notification}/mark-single-as-read:
+    get:
+      summary: Mark single notifications as read.
+      parameters:
+        - in: path
+          name: notification
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Notification ID.
+      responses:
+        '200':
+          description: Notification successfully marked as read.
+  /movie/{movie}/quote:
+    post:
+      summary: Add Quote.
+      parameters:
+        - in: path
+          name: movie
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Movie ID.
+      responses:
+        '200':
+          description: Quote created successfully.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text_en:
+                  type: string
+                  default: Some random quote
+                text_ka:
+                  type: string
+                  default: შემთხვევითი ციტატა
+                image:
+                  type: string
+                  default: image.png
+  /quote/{quote}:
+    get:
+      summary: Get requested quote.
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    text:
+                      default: {
+                        en: Some random quote,
+                        ka: შემთხვევითი ციტატა,
+                      }
+                    likes:
+                      default: [ {
+                      id: 1,
+                      user_id: 1,
+                      quote_id: 1,
+                      created_at: 2022-08-04 18:22:38,
+                      updated_at: 2022-08-04 18:22:38,
+                    } ]
+                    comments:
+                      default: [ {
+                      id: 1,
+                      text: "Awesome",
+                      comment_from: "mangola201",
+                      avatar: "imageofmangole201.png",
+                      user_id: 2,
+                      quote_id: 3,
+                      created_at: 2022-08-04 18:22:38,
+                      updated_at: 2022-08-04 18:22:38,
+                    } ]
+                    user:
+                      default: [ {
+                        id: 1,
+                        username: 'jamesbond',
+                        email: 'bingo@gmail.com',
+                        avatar: 'file911.png',
+                        provider: null,
+                        created_at: 2022-08-04 18:22:38,
+                      }]
+                    image:
+                      type: string
+                      default: image.png
+                    user_id:
+                      type: integer
+                      default: 1
+                    movie_id:
+                      type: integer
+                      default: 1
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    updated_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+      parameters:
+        - in: path
+          name: quote
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Quote ID.
+    delete:
+      summary: Quote delete.
+      responses:
+        '200':
+          description: Quote deleted.
+      parameters:
+        - in: path
+          name: quote
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Quote ID.
+  /quote/{quote}/update:
+    post:
+      summary: Update quote.
+      responses:
+        '200':
+          description: Quote updated successfully.
+      parameters:
+        - in: path
+          name: quote
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Requested Quote ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text_en:
+                  type: string
+                  default: Some random quote
+                text_ka:
+                  type: string
+                  default: შემთხვევითი ციტატა
+                image:
+                  type: string
+                  required: false
+  /feed:
+    post:
+      summary: All quotes for feed with possible searching.
+      parameters:
+        - in: query
+          name: search
+          required: false
+          schema:
+            type: string
+          description: To get Searched Movies, start query string named search by M, to do exact thing but for quotes, start with Q.
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    text:
+                      default: {
+                        en: Some random quote,
+                        ka: შემთხვევითი ციტატა,
+                      }
+                    movie:
+                      default: [ {
+                                  title: {
+                                           en: Pirates,
+                                           ka: მეკობრეები,
+                                  },
+                                  description: {
+                                                 en: Cool movie,
+                                                 ka: მაგარი ფილმი,
+                                  },
+                                  director: {
+                                              en: Jack Morty,
+                                              ka: ჯეკ მორტი,
+                                  },
+                                  user: [ {
+                                    id: 1,
+                                    username: 'jamesbond',
+                                    email: 'bingo@gmail.com',
+                                    avatar: 'file911.png',
+                                    provider: null,
+                                    created_at: 2022-08-04 18:22:38,
+                                  } ],
+                                  genres: [ {
+                                      id: 1,
+                                      name: Comedy,
+                                      created_at: 2022-08-04 18:22:38,
+                                      updated_at: 2022-08-04 18:22:38,
+                                    },
+                                      {
+                                        id: 2,
+                                        name: Drama,
+                                        created_at: 2022-08-04 18:22:38,
+                                        updated_at: 2022-08-04 18:22:38,
+                                      } ],
+                                  year: 2020,
+                                  budget: 500000000,
+                                  image: file.png,
+                                  user_id: 1,
+                                  created_at: 2022-08-04 18:22:38,
+                                  updated_at: 2022-08-04 18:22:38,
+                      } ]
+                    likes:
+                      default: [ {
+                        id: 1,
+                        user_id: 1,
+                        quote_id: 1,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38,
+                      } ]
+                    comments:
+                      default: [ {
+                        id: 1,
+                        text: "Awesome",
+                        comment_from: "mangola201",
+                        avatar: "imageofmangole201.png",
+                        user_id: 2,
+                        quote_id: 3,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38,
+                      } ]
+                    user:
+                      default: [ {
+                        id: 1,
+                        username: 'jamesbond',
+                        email: 'bingo@gmail.com',
+                        avatar: 'file911.png',
+                        provider: null,
+                        created_at: 2022-08-04 18:22:38,
+                      } ]
+                    image:
+                      type: string
+                      default: image.png
+                    user_id:
+                      type: integer
+                      default: 1
+                    movie_id:
+                      type: integer
+                      default: 1
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    updated_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+  /quotes:
+    get:
+      summary: All quotes with its user and movie.
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      default: 1
+                    text:
+                      default: {
+                        en: Some random quote,
+                        ka: შემთხვევითი ციტატა,
+                      }
+                    movie:
+                      default: [ {
+                        title: {
+                          en: Pirates,
+                          ka: მეკობრეები,
+                        },
+                        description: {
+                          en: Cool movie,
+                          ka: მაგარი ფილმი,
+                        },
+                        director: {
+                          en: Jack Morty,
+                          ka: ჯეკ მორტი,
+                        },
+                        user: [ {
+                          id: 1,
+                          username: 'jamesbond',
+                          email: 'bingo@gmail.com',
+                          avatar: 'file911.png',
+                          provider: null,
+                          created_at: 2022-08-04 18:22:38,
+                        } ],
+                        genres: [ {
+                          id: 1,
+                          name: Comedy,
+                          created_at: 2022-08-04 18:22:38,
+                          updated_at: 2022-08-04 18:22:38,
+                        },
+                          {
+                            id: 2,
+                            name: Drama,
+                            created_at: 2022-08-04 18:22:38,
+                            updated_at: 2022-08-04 18:22:38,
+                          } ],
+                        year: 2020,
+                        budget: 500000000,
+                        image: file.png,
+                        user_id: 1,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38,
+                      } ]
+                    likes:
+                      default: [ {
+                        id: 1,
+                        user_id: 1,
+                        quote_id: 1,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38,
+                      } ]
+                    comments:
+                      default: [ {
+                        id: 1,
+                        text: "Awesome",
+                        comment_from: "mangola201",
+                        avatar: "imageofmangole201.png",
+                        user_id: 2,
+                        quote_id: 3,
+                        created_at: 2022-08-04 18:22:38,
+                        updated_at: 2022-08-04 18:22:38,
+                      } ]
+                    user:
+                      default: [ {
+                        id: 1,
+                        username: 'jamesbond',
+                        email: 'bingo@gmail.com',
+                        avatar: 'file911.png',
+                        provider: null,
+                        created_at: 2022-08-04 18:22:38,
+                      } ]
+                    image:
+                      type: string
+                      default: image.png
+                    user_id:
+                      type: integer
+                      default: 1
+                    movie_id:
+                      type: integer
+                      default: 1
+                    created_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+                    updated_at:
+                      type: string
+                      default: 2022-08-04 18:22:38
+  /add-quote:
+    post:
+      summary: Add quote from feed.
+      responses:
+        '200':
+          description: Get back current quote id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    quoteId:
+                      type: integer
+                      default: 54
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text_en:
+                  type: string
+                  default: Some random quote
+                text_ka:
+                  type: string
+                  default: შემთხვევითი ციტატა
+                image:
+                  type: string
+                  default: image.png
+                movieId:
+                  type: integer
+                  default: 2

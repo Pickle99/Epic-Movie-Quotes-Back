@@ -92,7 +92,7 @@ class NotificationTest extends TestCase
 			'user_id' => $user->id,
 		]);
 
-		$this->post(route('notifications_single_read', ['notification' => $notification->id]))->assertSuccessful();
+		$this->get(route('notifications_single_read', ['notification' => $notification->id]))->assertSuccessful();
 	}
 
 	public function test_notification_belongs_to_user_class()

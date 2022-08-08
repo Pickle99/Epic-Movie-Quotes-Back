@@ -70,7 +70,7 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::controller(NotificationController::class)->group(function () {
 		Route::get('notifications/mark-all-as-read', 'markAsAllRead')->name('notifications_all_read');
-		Route::post('notification/{notification}/mark-single-as-read', 'markSingleAsRead')->name('notifications_single_read');
+		Route::get('notification/{notification}/mark-single-as-read', 'markSingleAsRead')->name('notifications_single_read');
 		Route::get('notifications', 'show')->name('notifications.show');
 	});
 });

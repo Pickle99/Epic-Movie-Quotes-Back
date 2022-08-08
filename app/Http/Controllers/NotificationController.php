@@ -26,13 +26,13 @@ class NotificationController extends Controller
 			$notification->notification_state = null;
 			$notification->save();
 		}
-		return response()->json(['message' => 'Notifications successfully marked as all read!']);
+		return response()->json(['message' => 'Notifications successfully marked as all read']);
 	}
 
 	public function markSingleAsRead(Notification $notification): JsonResponse
 	{
 		$notification->notification_state = null;
 		$notification->save();
-		return response()->json(['message' => 'Notification successfully marked as read!']);
+		return response()->json(['message' => 'Notification successfully marked as read']);
 	}
 }

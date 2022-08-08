@@ -43,7 +43,7 @@ class QuoteController extends Controller
 			$quote->save();
 		}
 
-		return response()->json(['message' => 'Movie created successfully']);
+		return response()->json(['message' => 'Quote created successfully']);
 	}
 
 	public function showQuote(Quote $quote): QuoteResource
