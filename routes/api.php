@@ -28,10 +28,10 @@ Route::middleware('guest')->group(function () {
 	Route::post('login', [AuthController::class, 'login'])->name('login');
 
 	Route::post('register', [RegisterController::class, 'createUser'])->name('register');
-	Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user_verify');
+	Route::post('successfully-verified/{token}', [RegisterController::class, 'verifyEmail'])->name('user.verify');
 
-	Route::post('forgot-password', [ResetPasswordController::class, 'resetPassword'])->name('password.email');
-	Route::post('reset-password/{token}', [ResetPasswordController::class, 'updatePassword'])->name('password.update');
+	Route::post('forgot-password', [ResetPasswordController::class, 'resetPassword'])->name('password.forgot');
+	Route::post('reset-password/{token}', [ResetPasswordController::class, 'updatePassword'])->name('password.reset');
 
 	Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])->name('google.redirect');
 	Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
@@ -65,12 +65,12 @@ Route::middleware('auth:api')->group(function () {
 		Route::delete('quote/{quote}', 'destroy')->name('quote.destroy');
 		Route::post('feed', 'showPaginatedQuotes')->name('feed.show');
 		Route::get('quotes', 'index')->name('quotes');
-		Route::post('add-quote', 'storeWriteQuote')->name('quote.store_write');
+		Route::post('add-quote', 'storeWriteQuote')->name('quote.store-write');
 	});
 
 	Route::controller(NotificationController::class)->group(function () {
-		Route::get('notifications/mark-all-as-read', 'markAsAllRead')->name('notifications_all_read');
-		Route::get('notification/{notification}/mark-single-as-read', 'markSingleAsRead')->name('notifications_single_read');
+		Route::get('notifications/mark-all-as-read', 'markAsAllRead')->name('notifications-all-read');
+		Route::get('notification/{notification}/mark-single-as-read', 'markSingleAsRead')->name('notifications-single-read');
 		Route::get('notifications', 'show')->name('notifications.show');
 	});
 });

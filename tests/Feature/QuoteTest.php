@@ -313,7 +313,7 @@ class QuoteTest extends TestCase
 			'user_id' => $user->id,
 		]);
 
-		$this->post(route('quote.store_write'), [
+		$this->post(route('quote.store-write'), [
 			'text_en'              => 'asdf',
 			'text_ka'              => 'აბგს',
 			'movieId'              => $movie->id,

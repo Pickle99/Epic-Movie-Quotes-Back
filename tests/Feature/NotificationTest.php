@@ -67,7 +67,7 @@ class NotificationTest extends TestCase
 			'user_id' => $user->id,
 		]);
 
-		$this->get(route('notifications_all_read'))->assertSuccessful();
+		$this->get(route('notifications-all-read'))->assertSuccessful();
 	}
 
 	public function test_user_can_mark_as_read_only_one_notification_which_he_choose()
@@ -92,7 +92,7 @@ class NotificationTest extends TestCase
 			'user_id' => $user->id,
 		]);
 
-		$this->get(route('notifications_single_read', ['notification' => $notification->id]))->assertSuccessful();
+		$this->get(route('notifications-single-read', ['notification' => $notification->id]))->assertSuccessful();
 	}
 
 	public function test_notification_belongs_to_user_class()

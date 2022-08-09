@@ -22,7 +22,7 @@ class ResetPasswordTest extends TestCase
 		$user = User::factory()->create([
 			'email' => 'babakaka@gmail.com',
 		]);
-		$this->post(route('password.email'), [
+		$this->post(route('password.forgot'), [
 			'email' => $user->email,
 		])->assertSuccessful();
 	}
@@ -38,7 +38,7 @@ class ResetPasswordTest extends TestCase
 			'token'   => $user->token,
 			'user_id' => $user->id,
 		]);
-		$this->post(route('password.update', ['token' => $user->token]), [
+		$this->post(route('password.reset', ['token' => $user->token]), [
 			'password'              => '123123123',
 			'password_confirmation' => '123123123',
 			'email'                 => $user->email,
