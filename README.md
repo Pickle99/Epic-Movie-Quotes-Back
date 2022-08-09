@@ -1,4 +1,4 @@
-<# Movies Epic api
+# Movies Epic api
 Epic Movie Quotes is a site where you can post a movie,
 create a quote for it, edit and delete both the quote and the movie,
 and you can like and comment on the quote in real-time, resulting in real-time notifications.
@@ -75,8 +75,6 @@ DB_USERNAME=*****
 
 DB_PASSWORD=*****
 ______
-<p>after setting up .env file, execute</p>
-<code> php artisan config:cache </code>
 <p>in order to cache environment variables</p>
 <p>4. Now execute in the root of your project following:</p>
 <code> php artisan key:generate</code>
