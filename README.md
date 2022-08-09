@@ -3,9 +3,6 @@ Epic Movie Quotes is a site where you can post a movie,
 create a quote for it, edit and delete both the quote and the movie,
 and you can like and comment on the quote in real-time, resulting in real-time notifications.
 
-_________________________
-
-- **[DrawSql diagram link](https://drawsql.app/teams/redberry-22/diagrams/movies-epic-diagram)**
 ____
 
 ## Table of Contents
@@ -57,7 +54,13 @@ With HTTPS:
 <p>4. Now we need to set our env file. Go to the root of your project and execute this command.</p>
 <code>cp .env.example .env</code>
 <p>And now you should provide .env file all the necessary environment variables:</p>
-
+<p>in order to cache environment variables</p>
+<p>4. Now execute in the root of your project following:</p>
+<code> php artisan key:generate</code>
+<p>Which generates auth key.</p>
+<h5>Now you should be good to go!</h5>
+<p id="migrate">if you've completed getting started section, then migrating database if fairly simple process, just execute:</p>
+<code> php artisan migrate </code>
 
 ________
 
@@ -74,25 +77,8 @@ DB_DATABASE=*****
 DB_USERNAME=*****
 
 DB_PASSWORD=*****
-______
-<p>in order to cache environment variables</p>
-<p>4. Now execute in the root of your project following:</p>
-<code> php artisan key:generate</code>
-<p>Which generates auth key.</p>
-<h5>Now you should be good to go!</h5>
 
 
-
-
-
-____________
-
-### Migrations
-<p id="migrate">if you've completed getting started section, then migrating database if fairly simple process, just execute:</p>
-<code> php artisan migrate </code>
-
-
-__________
 
 
 ### Development
@@ -104,4 +90,10 @@ __________
 <code>npm run watch</code>
 <p>it will watch JS files and on change it'll rebuild them, so you don't have to manually build them.</p>
 
-_____
+
+
+
+____
+# Resources
+- **[DrawSql diagram link](https://drawsql.app/teams/redberry-22/diagrams/movies-epic-diagram)**
+____
