@@ -7,7 +7,7 @@ info:
 servers:
   - url: http://localhost:8000/api
     description: local server
-  - url: http://producation.app/api
+  - url: https://api-chad-movies.luka-ramishvili.redberryinternship.ge/swagger
     description: production server
 
 paths:
