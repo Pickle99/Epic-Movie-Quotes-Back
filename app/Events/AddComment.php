@@ -19,6 +19,7 @@ class AddComment implements ShouldBroadcast
 	 */
 	public function __construct(public $comment)
 	{
+		$this->dontBroadcastToCurrentUser();
 	}
 
 	/**
